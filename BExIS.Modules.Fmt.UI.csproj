@@ -8,12 +8,12 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{0E5F4B53-398A-4634-9921-03B9CACBE8E0}</ProjectGuid>
+    <ProjectGuid>{B8BFE43F-70F2-4E82-A765-2A59B79890F7}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BExIS.Modules.Lui.UI</RootNamespace>
-    <AssemblyName>BExIS.Modules.Lui.UI</AssemblyName>
+    <RootNamespace>BExIS.Modules.Fmt.UI</RootNamespace>
+    <AssemblyName>BExIS.Modules.Fmt.UI</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -171,26 +172,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\MainController.cs" />
-    <Compile Include="Helper\CalculateLui.cs" />
-    <Compile Include="Helper\LUISeedDataGenerator.cs" />
-    <Compile Include="Helper\Settings.cs" />
-    <Compile Include="LUIModule.cs" />
-    <Compile Include="Models\LUIQueryModel.cs" />
+    <Compile Include="Controllers\BEOInformationController.cs" />
+    <Compile Include="Controllers\InfoPageController.cs" />
+    <Compile Include="FMTModule.cs" />
+    <Compile Include="Helper\MenuHelper.cs" />
+    <Compile Include="Models\InfoPageModel.cs" />
+    <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\main.css" />
-    <Content Include="LUI.Manifest.xml" />
+    <Content Include="FMT.Manifest.xml" />
+    <Content Include="Fmt.Settings.xml" />
     <Content Include="packages.config" />
-    <Content Include="Scripts\lui.js" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="web.config" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Main\Index.cshtml" />
-    <Content Include="Views\Main\_results.cshtml" />
-    <Content Include="Views\Main\Error.cshtml" />
+    <Content Include="Views\BEOInformation\Index.cshtml" />
+    <Content Include="Views\InfoPage\InfoPage.cshtml" />
+    <Content Include="Views\InfoPage\_directoryExplorer.cshtml" />
+    <Content Include="Views\InfoPage\_fileList.cshtml" />
+    <Content Include="Views\InfoPage\_uploadFile.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -201,6 +204,7 @@
   <ItemGroup>
     <Folder Include="fonts\" />
     <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Components\AAA\BExIS.Security.Entities\BExIS.Security.Entities.csproj">
@@ -222,6 +226,10 @@
     <ProjectReference Include="..\..\..\..\Components\IO\BExIS.IO.Transform.Output\BExIS.IO.Transform.Output.csproj">
       <Project>{455ec826-9a92-40ff-bd3b-388c288955ce}</Project>
       <Name>BExIS.IO.Transform.Output</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Components\XML\BExIS.Xml.Helpers\BExIS.Xml.Helpers.csproj">
+      <Project>{252f7872-a69c-43a6-84b4-4d2abdbdd9ab}</Project>
+      <Name>BExIS.Xml.Helpers</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
@@ -259,6 +267,10 @@
     <Error Condition="!Exists('..\..\..\..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>mkdir "$(SolutionDir)Console\Workspace\Modules\FMT"
+C:\Windows\System32\xcopy "$(ProjectDir)Fmt.Settings.xml" "$(SolutionDir)Console\Workspace\Modules\FMT" /C /Y /I</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

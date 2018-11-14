@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Manifest moduleId="FMT" displayName="" version="1.0.0" builtin="false">
+  <Description>
+    <!--add proper description-->
+  </Description>
+  <Assemblies>
+    <Assembly fullName="" role=""/>
+  </Assemblies>
+  <Dependencies>
+    <!--<Dependency moduleId="dcm" version="*.*.*" />-->
+  </Dependencies>
+  <Exports>
+    <!--add proper menu items-->
+	
+    <Export tag="menubar" id="fmtMenu" order="10"
+            title="File Management" description="FMT desc" icon=""
+            controller="InfoPage" action="index"
+            extends="./menubarRoot" />
+   
+  </Exports>
+</Manifest>

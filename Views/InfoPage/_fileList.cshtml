@@ -1,0 +1,38 @@
+﻿@using Telerik.Web.Mvc.UI
+@using BExIS.Web.Shell.Areas.FMT.Models
+
+
+@model List<FileModel>
+
+
+@using (Html.BeginForm("FileList", "InfoPage", new { area = "FMT" }, FormMethod.Get))
+{
+
+    <b>Files :</b>
+    <ul>
+        @foreach (FileModel file in Model)
+        {
+        <li>
+                @Html.ActionLink(file.Filename, "DownloadFile", "Data", new { area = "DDM", path = file.Filepath, mimeType = file.MimeType }, new { @class = "bx bx-grid-function bx-download" })
+            &nbsp;&nbsp;<img src="~/Areas/FMT/Images/FMT_Images/Delete.ico" width="24px" style="cursor:pointer;" id="btnDelete" onclick="@Html.Raw("DeleteFMTFile('"+file.Filepath+"')")" />
+        </li>
+        }
+        @if (!Model.Any())
+        {
+            <li>Not found.</li>
+        }
+    </ul>
+
+}
+<script type="text/javascript">
+    function DeleteFMTFile(path)
+    {
+        if (confirm("Are you sure you want to delete ?"))
+        {
+            $.get('@Url.Action("DeleteFile", "InfoPage")', { filePath: path }, function (data) {
+                parent.loadFilesAndUploader();
+                // location.reload();
+            });
+        }
+    }
+</script>
