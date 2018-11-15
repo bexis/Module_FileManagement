@@ -25,7 +25,7 @@ namespace BExIS.Modules.FMT.UI.Controllers
         {
             MenuHelper menuHelper = new MenuHelper();
             var menus = menuHelper.GetMenu(rootMenu);
-            if (string.IsNullOrEmpty(rootMenu))
+            //if (string.IsNullOrEmpty(rootMenu))
                 ViewBag.UseLayout = true;
             return View("InfoPage", menus);
         }
@@ -41,15 +41,15 @@ namespace BExIS.Modules.FMT.UI.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult GetFileUploader(string FMTMenuItemPath)
+        public ActionResult GetFileUploader(string menuItemPath)
         {
-            ViewBag.FilePath = FMTMenuItemPath;
+            ViewBag.FilePath = menuItemPath;
             return PartialView("_uploadFile");
         }
 
-        public ActionResult GetFileLists(string FMTMenuItemPath)
+        public ActionResult GetFileLists(string menuItemPath)
         {
-            var fileModelList = FileModel.GetFileModelList(FMTMenuItemPath);
+            var fileModelList = FileModel.GetFileModelList(menuItemPath);
             return PartialView("_fileList", fileModelList);
         }
 

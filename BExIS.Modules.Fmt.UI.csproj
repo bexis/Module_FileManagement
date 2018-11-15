@@ -184,6 +184,9 @@
     <Content Include="Content\main.css" />
     <Content Include="FMT.Manifest.xml" />
     <Content Include="Fmt.Settings.xml" />
+    <Content Include="Images\FMT_Images\Delete.ico" />
+    <Content Include="Images\FMT_Images\Folder.png" />
+    <Content Include="Images\FMT_Images\Folders.png" />
     <Content Include="packages.config" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />

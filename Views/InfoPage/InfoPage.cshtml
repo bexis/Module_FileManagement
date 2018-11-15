@@ -3,6 +3,7 @@
 @using BExIS.Modules.FMT.UI.Models
 
 @model List<FMTMenuItem>
+
 @{
     if (ViewBag.UseLayout == null)
     {
@@ -10,37 +11,43 @@
     }
 }
 <div>
-    <div style="display:inline-block;width:20%;vertical-align: top;">
+ 
+    <div style="display:inline-block;width:20%;vertical-align: top;" class="overlay">
+
         @if (Model == null)
         {
             <span>Not Found.</span>
         }
         else
         {
-            @Html.Telerik().TreeView().Name("TreeView").BindTo(Model, mappings =>
-        {
-            mappings.For<FMTMenuItem>
-           (binding => binding
-           .ItemDataBound((item, menuItem) =>
-           {
-               item.Text = menuItem.Title;
-               item.Value = menuItem.Path;
-               item.ImageUrl = menuItem.MenuItems.Any() ? "~/Areas/FMT/Images/FMT_Images/Folders.png" : "~/Areas/FMT/Images/FMT_Images/Folder.png";
-           })
-           .Children(category => category.MenuItems));
-            mappings.For<FMTMenuItem>
-                (binding => binding
-                .ItemDataBound((item, subMenuItem) =>
-                {
-                    item.Text = subMenuItem.Title;
-                    item.Value = subMenuItem.Path;
-                    item.ImageUrl = subMenuItem.MenuItems.Any() ? "~/Areas/FMT/Images/FMT_Images/Folders.png" : "~/Areas/FMT/Images/FMT_Images/Folder.png";
-                }));
-        }).ClientEvents(events => events
-                                .OnSelect("onSelectFMTMenuItem"))
+            @Html.Telerik().TreeView().Name("TreeView").ShowCheckBox(false).ExpandAll(true).ClientEvents(events => events
+                                                       .OnSelect("onSelect")
+                                                      ).BindTo(Model, mappings =>
+                                    {
+                                        mappings.For<FMTMenuItem>
+                                        (binding => binding.ItemDataBound((item, menuItem) =>
+                                        {
+                                            item.Text = menuItem.Title;
+                                            item.Value = menuItem.Path;
+                                            item.ImageUrl = menuItem.MenuItems.Any() ? "~/Areas/FMT/Images/FMT_Images/Folders.png" : "~/Areas/FMT/Images/FMT_Images/Folder.png";
+                                        })
+                                            .Children(category => category.MenuItems));
+                                        mappings.For<FMTMenuItem>
+                                        (binding => binding
+                                        .ItemDataBound((item, subMenuItem) =>
+                                        {
+                                            item.Text = subMenuItem.Title;
+                                            item.Value = subMenuItem.Path;
+                                            item.ImageUrl = subMenuItem.MenuItems.Any() ? "~/Areas/FMT/Images/FMT_Images/Folders.png" : "~/Areas/FMT/Images/FMT_Images/Folder.png";
+                                        }));
+                                    });
+
 
         }
-    </div><div style="display:inline-block;width:80%;vertical-align: top;">
+
+    </div>
+    
+    <div style="display:inline-block;width:80%;vertical-align: top;">
         <div style="width:100%" id="FMTFilesDIV"></div>
         <div style="width:100%" id="FMTFileUpload">
 
@@ -48,21 +55,25 @@
     </div>
 </div>
 <script type="text/javascript">
+
     function treeView() {
         return $('#TreeView').data('tTreeView');
     }
+
     SelectedValue = '';
-    function onSelectFMTMenuItem(e) {
+
+
+    function onSelect(e) {
         var val = treeView().getItemValue(e.item);
         SelectedValue = val;
         loadFilesAndUploader();
     }
     function loadFilesAndUploader() {
         val = SelectedValue;
-        $.get('@Url.Action("GetFileLists")', { FMTMenuItemPath: val }, function (data) {
+        $.get('@Url.Action("GetFileLists")', { menuItemPath: val }, function (data) {
             $('#FMTFilesDIV').html(data);
         });
-        $.get('@Url.Action("GetFileUploader")', { FMTMenuItemPath: val }, function (data) {
+        $.get('@Url.Action("GetFileUploader")', { menuItemPath: val }, function (data) {
             $('#FMTFileUpload').html(data);
         });
     }
