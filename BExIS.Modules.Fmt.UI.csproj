@@ -172,7 +172,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\BaseAdminFileManagementController.cs" />
+    <Compile Include="Controllers\BaseFileManagementController.cs" />
     <Compile Include="Controllers\BEOInformationController.cs" />
+    <Compile Include="Controllers\InfoPageAdminController.cs" />
     <Compile Include="Controllers\InfoPageController.cs" />
     <Compile Include="FMTModule.cs" />
     <Compile Include="Helper\MenuHelper.cs" />
@@ -194,9 +197,9 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\BEOInformation\Index.cshtml" />
     <Content Include="Views\InfoPage\InfoPage.cshtml" />
-    <Content Include="Views\InfoPage\_directoryExplorer.cshtml" />
-    <Content Include="Views\InfoPage\_fileList.cshtml" />
-    <Content Include="Views\InfoPage\_uploadFile.cshtml" />
+    <Content Include="Views\Shared\_directoryExplorer.cshtml" />
+    <Content Include="Views\Shared\_fileList.cshtml" />
+    <Content Include="Views\Shared\_uploadFile.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -208,6 +211,9 @@
     <Folder Include="fonts\" />
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Scripts\" />
+    <Folder Include="Views\BaseAdminFileManagement\" />
+    <Folder Include="Views\BaseFileManagement\" />
+    <Folder Include="Views\InfoPageAdmin\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Components\AAA\BExIS.Security.Entities\BExIS.Security.Entities.csproj">
