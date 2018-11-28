@@ -11,13 +11,33 @@ namespace BExIS.Modules.Fmt.UI.Controllers
     public class BaseFileManagementController : Controller
     {
 
-        public ActionResult Index(string viewName, string rootMenu = "")
+        public ActionResult Index(string viewName, string rootMenu)
         {
-            MenuHelper menuHelper = new MenuHelper();
-            var menus = menuHelper.GetMenu(rootMenu);
+
+            if(String.IsNullOrEmpty(rootMenu))
+                ModelState.AddModelError("Error", "Please enter a menu root to the url!");
+            if (String.IsNullOrEmpty(viewName))
+                ModelState.AddModelError("Error", "Please enter a view name to the url!");
+
+           
+                MenuHelper menuHelper = new MenuHelper();
+                string userName = HttpContext.User.Identity.Name;
+                List<FMTMenuItem> menus = null;
+
+                    bool hasUserRights = false;
+                if (userName != "" && rootMenu != "")
+                        hasUserRights = menuHelper.HasUserAccessRights(rootMenu, userName);
+
+                if (!hasUserRights)
+                    ModelState.AddModelError("Error", "No access rights for this page!");
+                else
+                   menus = menuHelper.GetMenu(rootMenu);
+
+
             //if (string.IsNullOrEmpty(rootMenu))
 
             ViewBag.UseLayout = true;
+            
 
             return View(viewName, menus);
         }

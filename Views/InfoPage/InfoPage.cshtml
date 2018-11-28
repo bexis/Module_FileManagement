@@ -14,9 +14,10 @@
  
     <div style="display:inline-block;width:20%;vertical-align: top;" class="overlay">
 
+        @Html.ValidationMessage("Error")<br />
         @if (Model == null)
         {
-            <span>Not Found.</span>
+           
         }
         else
         {

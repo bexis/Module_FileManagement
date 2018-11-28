@@ -1,11 +1,14 @@
 ﻿using BExIS.IO;
 using BExIS.Modules.FMT.UI.Models;
+using BExIS.Security.Entities.Subjects;
+using BExIS.Security.Services.Subjects;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Xml;
 using System.Xml.Linq;
 using Vaiona.Utils.Cfg;
@@ -14,9 +17,8 @@ namespace BExIS.Modules.FMT.UI.Helper
 {
     public class MenuHelper
     {
-        internal List<FMTMenuItem> GetMenu(string root)
+        private XmlDocument GetMenuXmlDoc()
         {
-            List<FMTMenuItem> menuItems = null;
             string FMTPath = Path.Combine(AppConfiguration.DataPath, "FMT");
             if (!Directory.Exists(FMTPath))
                 Directory.CreateDirectory(FMTPath);
@@ -39,6 +41,33 @@ namespace BExIS.Modules.FMT.UI.Helper
                 foreach (XmlNode node in xmlDoc.SelectNodes("/Items"))
                     CreateDirectoriesByXmlConfig(node, FMTPath);
             }
+
+            return xmlDoc;
+        }
+
+        internal bool HasUserAccessRights(string root, string userName)
+        {
+            XmlDocument xmlDoc = GetMenuXmlDoc();
+            string roleName = xmlDoc.SelectSingleNode(string.Format("//Items[@Name='{0}']", root)).Attributes.GetNamedItem("Group").Value;
+
+            UserManager userManager = new UserManager();
+            var userTask = userManager.FindByNameAsync(userName);
+            userTask.Wait();
+            var user = userTask.Result;
+
+            if (user.Groups.Select(a => a.Name).Contains(roleName))
+                return true;
+            else
+                return false;
+        }
+
+        internal List<FMTMenuItem> GetMenu(string root)
+        {
+            List<FMTMenuItem> menuItems = null;
+
+            XmlDocument xmlDoc = GetMenuXmlDoc();
+            string FMTPath = Path.Combine(AppConfiguration.DataPath, "FMT");
+
             //create menuItems list
             var xmlNodeList = xmlDoc.SelectNodes(string.Format("//Items[@Name='{0}']", root));
             if (xmlNodeList.Count == 0)
