@@ -38,7 +38,7 @@ namespace BExIS.Modules.FMT.UI.Helper
                 //each time create path by config file
                 xDoc = XDocument.Load(menuConfigPath);
                 xmlDoc.Load(xDoc.CreateReader());
-                foreach (XmlNode node in xmlDoc.SelectNodes("/Items"))
+                foreach (XmlNode node in xmlDoc.SelectNodes("/Item"))
                     CreateDirectoriesByXmlConfig(node, FMTPath);
             }
 
