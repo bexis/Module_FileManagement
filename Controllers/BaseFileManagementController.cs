@@ -11,7 +11,7 @@ namespace BExIS.Modules.Fmt.UI.Controllers
     public class BaseFileManagementController : Controller
     {
 
-        public ActionResult Index(string viewName, string rootMenu)
+        public ActionResult Show(string viewName, string rootMenu)
         {
 
             if(String.IsNullOrEmpty(rootMenu))
@@ -29,7 +29,7 @@ namespace BExIS.Modules.Fmt.UI.Controllers
                         hasUserRights = menuHelper.HasUserAccessRights(rootMenu, userName);
 
                 if (!hasUserRights)
-                    ModelState.AddModelError("Error", "No access rights for this page!");
+                    ModelState.AddModelError("Error", "No access rights for this menu and this page!");
                 else
                    menus = menuHelper.GetMenu(rootMenu);
 
