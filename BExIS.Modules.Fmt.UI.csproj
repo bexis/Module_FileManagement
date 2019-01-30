@@ -178,6 +178,7 @@
     <Compile Include="Controllers\InfoPageAdminController.cs" />
     <Compile Include="Controllers\InfoPageController.cs" />
     <Compile Include="FMTModule.cs" />
+    <Compile Include="Helper\FmtSeedDataGenerator.cs" />
     <Compile Include="Helper\MenuHelper.cs" />
     <Compile Include="Models\InfoPageModel.cs" />
     <Compile Include="Models\MenuModel.cs" />
