@@ -35,4 +35,5 @@ namespace BExIS.Modules.Fmt.UI.Helper
                 featureManager.Dispose();
             }
         }
+    }
 }
