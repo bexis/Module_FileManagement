@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BExIS.Modules.Fmt.UI.Helper;
+using System;
 using Vaiona.Logging;
 using Vaiona.Web.Mvc.Modularity;
 
@@ -17,7 +18,10 @@ namespace BExIS.Modules.Fmt.UI
             try
             {
                 base.Install();
-                //LUISeedDataGenerator.CreateFeatures();
+                using (var fmtSeedDataGenerator = new FmtSeedDataGenerator())
+                {
+                    fmtSeedDataGenerator.GenerateSeedData();
+                }
             }
             catch (Exception e)
             {

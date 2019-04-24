@@ -174,7 +174,6 @@
   <ItemGroup>
     <Compile Include="Controllers\BaseAdminFileManagementController.cs" />
     <Compile Include="Controllers\BaseFileManagementController.cs" />
-    <Compile Include="Controllers\BEOInformationController.cs" />
     <Compile Include="Controllers\InfoPageAdminController.cs" />
     <Compile Include="Controllers\InfoPageController.cs" />
     <Compile Include="FMTModule.cs" />
