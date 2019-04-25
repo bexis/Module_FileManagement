@@ -71,10 +71,12 @@
     }
     function loadFilesAndUploader() {
         val = SelectedValue;
+        alert(val);
+        contr = "InfoPage";
         $.get('@Url.Action("GetFileLists", "InfoPage", new { area=""})', { menuItemPath: val }, function (data) {
             $('#FMTFilesDIV').html(data);
         });
-        $.get('@Url.Action("GetFileUploader", "InfoPageAdmin", new { area = "" })', { menuItemPath: val }, function (data) {
+        $.get('@Url.Action("GetFileUploader", "InfoPageAdmin", new { area = "" })', { menuItemPath: val, cont: contr }, function (data) {
             $('#FMTFileUpload').html(data);
         });
     }

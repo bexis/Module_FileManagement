@@ -5,7 +5,7 @@
 @model List<FileModel>
 
 
-@using (Html.BeginForm("FileList", "InfoPage", new { area = "FMT" }, FormMethod.Get))
+@using (Html.BeginForm("FileList", "BaseFileManagement", new { area = "FMT" }, FormMethod.Get))
 {
 
     <b>Files :</b>
@@ -14,7 +14,7 @@
         {
         <li>
                 @Html.ActionLink(file.Filename, "DownloadFile", "Data", new { area = "DDM", path = file.Filepath, mimeType = file.MimeType }, new { @class = "bx bx-grid-function bx-download" })
-            &nbsp;&nbsp;<img src="~/Areas/FMT/Images/FMT_Images/Delete.ico" width="24px" style="cursor:pointer;" id="btnDelete" onclick="@Html.Raw("DeleteFMTFile('"+file.Filepath+"')")" />
+            &nbsp;&nbsp;<img src="~/Areas/FMT/Images/FMT_Images/Delete.ico" width="24px" style="cursor:pointer;" id="btnDelete" onclick="DeleteFMTFile('@file.Filepath')" />
         </li>
         }
         @if (!Model.Any())
@@ -27,9 +27,10 @@
 <script type="text/javascript">
     function DeleteFMTFile(path)
     {
+    alert(path);
         if (confirm("Are you sure you want to delete ?"))
         {
-            $.get('@Url.Action("DeleteFile", "InfoPage")', { filePath: path }, function (data) {
+            $.get('@Url.Action("DeleteFile", "BaseAdminFileManagement")', { filePath: path }, function (data) {
                 parent.loadFilesAndUploader();
                 // location.reload();
             });

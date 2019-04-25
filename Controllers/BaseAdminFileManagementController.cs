@@ -11,9 +11,10 @@ namespace BExIS.Modules.Fmt.UI.Controllers
 {
     public class BaseAdminFileManagementController : Controller
     {
-        public ActionResult GetFileUploader(string menuItemPath)
+        public ActionResult GetFileUploader(string menuItemPath, string cont)
         {
             ViewBag.FilePath = menuItemPath;
+            Session["Controller"] = cont;
             return PartialView("~/Areas/FMT/Views/Shared/_uploadFile.cshtml");
         }
 
@@ -25,7 +26,9 @@ namespace BExIS.Modules.Fmt.UI.Controllers
                 string newFilePath = Path.Combine(AppConfiguration.DataPath, filePath, SelectFileUploader.FileName);
                 SelectFileUploader.SaveAs(newFilePath);
             }
-            return RedirectToAction("Index", "BaseFileManagementController", new { area =""});
+            string controller = Session["Controller"].ToString();
+            Session["Controller"] = null;
+            return RedirectToAction("Index", controller, new { area =""});
         }
 
 
@@ -40,7 +43,9 @@ namespace BExIS.Modules.Fmt.UI.Controllers
             //to prevent of error and rewriting I add something to file name if it exists
             if (FileHelper.CanReadFile(deletedFilePath + "\\" + Path.GetFileName(filePath)))
                 des = deletedFilePath + "\\" + new Random().Next(1, 100) + "_" + Path.GetFileName(filePath);
-            Vaiona.Utils.IO.FileHelper.MoveAndReplace(Path.Combine(AppConfiguration.DataPath, filePath), des);
+            string path = AppConfiguration.DataPath + @"\" + filePath;
+            path = path.Replace(@"\\", @"\");
+            Vaiona.Utils.IO.FileHelper.MoveAndReplace(path, des);
             return null;
         }
     }

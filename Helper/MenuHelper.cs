@@ -90,7 +90,8 @@ namespace BExIS.Modules.FMT.UI.Helper
             if (xmlNodeList.Count > 0)
             {
                 menuItems = new List<FMTMenuItem>();
-                foreach (var xmlMenuItem in GetMenuItems(xmlNodeList[0], Path.Combine(FMTPath, root)).MenuItems)
+                string path = FMTPath + @"\\" + root;
+                foreach (var xmlMenuItem in GetMenuItems(xmlNodeList[0], path).MenuItems)
                 {
                     menuItems.Add(xmlMenuItem);
                 }
@@ -122,7 +123,7 @@ namespace BExIS.Modules.FMT.UI.Helper
             item.Title = xmlNode.Attributes["Title"].Value;
             item.MenuItems = new List<FMTMenuItem>();
             foreach (XmlNode childXmlNode in xmlNode.ChildNodes)
-                item.MenuItems.Add(GetMenuItems(childXmlNode, directory + "/" + childXmlNode.Attributes["Name"].Value));
+                item.MenuItems.Add(GetMenuItems(childXmlNode, directory + @"\\" + childXmlNode.Attributes["Name"].Value));
             return item;
         }
 

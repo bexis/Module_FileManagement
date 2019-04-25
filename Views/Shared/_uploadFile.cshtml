@@ -1,7 +1,7 @@
 ﻿@using Telerik.Web.Mvc.UI
 @using BExIS.Modules.FMT.UI.Models
 
-@using (Html.BeginForm("SubmitFile", "InfoPage", new { area = "FMT", enctype = "multipart/form-data" }, FormMethod.Post))
+@using (Html.BeginForm("SubmitFile", "BaseAdminFileManagement", new { area = "FMT", enctype = "multipart/form-data" }, FormMethod.Post))
 {
 <b>Upload File:</b><span id="">@ViewBag.FilePath</span>
     <input type="hidden" name="filePath" id="filePath" value="@ViewBag.FilePath"/>

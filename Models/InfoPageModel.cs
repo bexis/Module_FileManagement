@@ -53,7 +53,7 @@ namespace BExIS.Modules.FMT.UI.Models
             foreach (var file in Directory.GetFiles(Path.Combine(AppConfiguration.DataPath,FMTMenuItemPath)))
             {
                 var fileName = Path.GetFileName(file);
-                fileModels.Add(new FileModel() { Filename = fileName, Filepath =FMTMenuItemPath+"/"+ fileName, MimeType = MimeMapping.GetMimeMapping(file) });
+                fileModels.Add(new FileModel() { Filename = fileName, Filepath =FMTMenuItemPath + @"\\"+ fileName, MimeType = MimeMapping.GetMimeMapping(file) });
             }
             return fileModels;
         }
