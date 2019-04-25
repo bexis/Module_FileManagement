@@ -31,21 +31,28 @@ namespace BExIS.Modules.Fmt.UI.Controllers
             return RedirectToAction("Index", controller, new { area =""});
         }
 
-
+        /// <summary>
+        /// Delete file from the folder, but peserve (move) it to the folder "Deleted Files". The moved file will be renamed, if a file with the same name already exists.
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public ActionResult DeleteFile(string filePath)
         {
-            //should to set last path in file attribute
-            // File.SetAttributes(filePath, FileAttributes.Normal);
+  
+            // Create directory for deleted files if not exists
             var deletedFilePath = Path.Combine(AppConfiguration.DataPath, "FMT\\Deleted Files");
-            Directory.CreateDirectory(deletedFilePath);
+            BExIS.IO.FileHelper.CreateDicrectoriesIfNotExist(deletedFilePath);
 
             var des = deletedFilePath + "\\" + Path.GetFileName(filePath);
-            //to prevent of error and rewriting I add something to file name if it exists
-            if (FileHelper.CanReadFile(deletedFilePath + "\\" + Path.GetFileName(filePath)))
-                des = deletedFilePath + "\\" + new Random().Next(1, 100) + "_" + Path.GetFileName(filePath);
-            string path = AppConfiguration.DataPath + @"\" + filePath;
-            path = path.Replace(@"\\", @"\");
-            Vaiona.Utils.IO.FileHelper.MoveAndReplace(path, des);
+            
+            // Check if file already exists in the "Deleted Files" folder and rename the file if yes.
+            if (System.IO.File.Exists(des)){
+                des = deletedFilePath + "\\" + new Random().Next(1, 1000) + "_" + Path.GetFileName(filePath);
+            }
+            
+            // Move file from source to "Deleted Files" folder
+            System.IO.File.Move(Path.Combine(AppConfiguration.DataPath, filePath), des);
+
             return null;
         }
     }
