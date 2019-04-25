@@ -22,26 +22,28 @@
         else
         {
             @Html.Telerik().TreeView().Name("TreeView").ShowCheckBox(false).ExpandAll(true).ClientEvents(events => events
-                                                       .OnSelect("onSelect")
+                                                       .OnSelect("onSelect").OnLoad("click_node")
                                                       ).BindTo(Model, mappings =>
-                                    {
-                                        mappings.For<FMTMenuItem>
-                                        (binding => binding.ItemDataBound((item, menuItem) =>
-                                        {
-                                            item.Text = menuItem.Title;
-                                            item.Value = menuItem.Path;
-                                            item.ImageUrl = menuItem.MenuItems.Any() ? "~/Areas/FMT/Images/FMT_Images/Folders.png" : "~/Areas/FMT/Images/FMT_Images/Folder.png";
-                                        })
-                                            .Children(category => category.MenuItems));
-                                        mappings.For<FMTMenuItem>
-                                        (binding => binding
-                                        .ItemDataBound((item, subMenuItem) =>
-                                        {
-                                            item.Text = subMenuItem.Title;
-                                            item.Value = subMenuItem.Path;
-                                            item.ImageUrl = subMenuItem.MenuItems.Any() ? "~/Areas/FMT/Images/FMT_Images/Folders.png" : "~/Areas/FMT/Images/FMT_Images/Folder.png";
-                                        }));
-                                    });
+                                                      {
+                                                          mappings.For<FMTMenuItem>
+                                                          (binding => binding.ItemDataBound((item, menuItem) =>
+                                                          {
+                                                              item.Text = menuItem.Title;
+                                                              item.Value = menuItem.Path;
+                                                              item.LinkHtmlAttributes["id"] = menuItem.Path.Replace("\\", "_");
+                                                              item.ImageUrl = menuItem.MenuItems.Any() ? "~/Areas/FMT/Images/FMT_Images/Folders.png" : "~/Areas/FMT/Images/FMT_Images/Folder.png";
+                                                          })
+                                                              .Children(category => category.MenuItems));
+                                                          mappings.For<FMTMenuItem>
+                                                          (binding => binding
+                                                          .ItemDataBound((item, subMenuItem) =>
+                                                          {
+                                                              item.Text = subMenuItem.Title;
+                                                              item.Value = subMenuItem.Path;
+                                                              item.LinkHtmlAttributes["id"] = subMenuItem.Path.Replace("\\","_");
+                                                              item.ImageUrl = subMenuItem.MenuItems.Any() ? "~/Areas/FMT/Images/FMT_Images/Folders.png" : "~/Areas/FMT/Images/FMT_Images/Folder.png";
+                                                          }));
+                                                      });
 
 
         }
@@ -66,6 +68,7 @@
 
     function onSelect(e) {
         var val = treeView().getItemValue(e.item);
+
         SelectedValue = val;
         loadFilesAndUploader();
     }
@@ -80,4 +83,18 @@
             $('#FMTFileUpload').html(data);
         });
     }
+
+    jQuery.urlParam = function (name) {
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if (results == null) {
+            return null;
+        }
+        return decodeURI(results[1]) || 0;
+    }
+
+
+    function click_node() {       
+        jQuery("#" + jQuery.urlParam('node_id')).click();
+    }
+
 </script>

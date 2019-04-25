@@ -28,7 +28,8 @@ namespace BExIS.Modules.Fmt.UI.Controllers
             }
             string controller = Session["Controller"].ToString();
             Session["Controller"] = null;
-            return RedirectToAction("Index", controller, new { area =""});
+
+            return RedirectToAction("Index", controller, new { node_id = filePath });
         }
 
         /// <summary>

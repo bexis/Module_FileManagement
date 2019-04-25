@@ -3,15 +3,16 @@
 
 @using (Html.BeginForm("SubmitFile", "BaseAdminFileManagement", new { area = "FMT", enctype = "multipart/form-data" }, FormMethod.Post))
 {
-<b>Upload File:</b><span id="">@ViewBag.FilePath</span>
-    <input type="hidden" name="filePath" id="filePath" value="@ViewBag.FilePath"/>
-  @(Html.Telerik().Upload()
-                                .Name("SelectFileUploaders")
-                                .Multiple(true)
-                                .ShowFileList(true)
-                                .HtmlAttributes(new {title="Browse"})
-                                )
-    
+    <b>Upload File:</b><span id="">@ViewBag.FilePath</span>
+    <input type="hidden" name="filePath" id="filePath" value="@ViewBag.FilePath" />
+    <input type="hidden" name="node"  value="test" />
+    @(Html.Telerik().Upload()
+                                        .Name("SelectFileUploaders")
+                                        .Multiple(true)
+                                        .ShowFileList(true)
+                                        .HtmlAttributes(new { title = "Browse" })
+    )
+
     <button type="submit">Submit</button>
 
 }
