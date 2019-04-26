@@ -5,14 +5,30 @@
 {
     <b>Upload File:</b><span id="">@ViewBag.FilePath</span>
     <input type="hidden" name="filePath" id="filePath" value="@ViewBag.FilePath" />
-    <input type="hidden" name="node"  value="test" />
+  
     @(Html.Telerik().Upload()
-                                        .Name("SelectFileUploaders")
-                                        .Multiple(true)
-                                        .ShowFileList(true)
-                                        .HtmlAttributes(new { title = "Browse" })
+                                                .Name("SelectFileUploaders")
+                                                .Multiple(true)
+                                                .ShowFileList(true)
+                                                .HtmlAttributes(new { title = "Browse" })
+                                                .ClientEvents(events => events
+                                                .OnSelect("selected")
+                                                .OnRemove("remove")                      
+                                                )
+                                                
     )
 
-    <button type="submit">Submit</button>
+    <button id="submit" type="submit" style="display:none;">Submit</button>
+    <script type="text/javascript">
+        function selected() {
+            jQuery("#submit").show();
+        }
 
+        function remove() {
+            if (jQuery(".t-delete").length == 1) {
+                jQuery("#submit").hide();
+            }
+        }
+
+    </script>
 }
