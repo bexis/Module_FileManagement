@@ -51,6 +51,8 @@
     </div>
     
     <div style="display:inline-block;width:80%;vertical-align: top;">
+        <div id="current_path"></div>
+        </br>
         <div style="width:100%" id="FMTFilesDIV"></div>
         <div style="width:100%" id="FMTFileUpload">
 
@@ -73,7 +75,6 @@
     }
     function loadFilesAndUploader() {
         val = SelectedValue;
-        alert(val);
         contr = "InfoPage";
         $.get('@Url.Action("GetFileLists", "InfoPage", new { area=""})', { menuItemPath: val }, function (data) {
             $('#FMTFilesDIV').html(data);
@@ -81,6 +82,21 @@
         $.get('@Url.Action("GetFileUploader", "InfoPageAdmin", new { area = "" })', { menuItemPath: val, cont: contr }, function (data) {
             $('#FMTFileUpload').html(data);
         });
+
+        var current_path_arr = val.split('\\');
+
+        var index;
+        var current_path = "";
+        var navigation_path = current_path_arr[0] + "__" + current_path_arr[2];
+        for (index = 3; index < current_path_arr.length; ++index) {
+            if (current_path_arr[index].length > 1) {
+                navigation_path = navigation_path + "__" + current_path_arr[index];
+                current_path = current_path + '  <b onclick="navigate_to_node(\'' + navigation_path  +'\');"> / ' + current_path_arr[index] + "</b>";
+            }
+        }
+
+        $("#current_path").html(current_path);
+
     }
 
     jQuery.urlParam = function (name) {
@@ -94,6 +110,11 @@
 
     function click_node() {       
         jQuery("#" + jQuery.urlParam('node_id')).click();
+    }
+
+    function navigate_to_node(node_id) {
+        console.log(node_id);
+        jQuery("#" + node_id).click();
     }
 
 </script>
