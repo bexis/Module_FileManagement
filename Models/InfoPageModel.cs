@@ -31,7 +31,9 @@ namespace BExIS.Modules.FMT.UI.Models
         public string Filename { get; set; }
         public string Filepath { get; set; }
         public string MimeType { get; set; }
-        public byte[] FileContent { get;set; } 
+        public byte[] FileContent { get;set; }
+        public DateTime Date { get; set; }
+        public int Length{ get; set; }
 
         public FileModel()
         {
@@ -53,7 +55,9 @@ namespace BExIS.Modules.FMT.UI.Models
             foreach (var file in Directory.GetFiles(Path.Combine(AppConfiguration.DataPath,FMTMenuItemPath)))
             {
                 var fileName = Path.GetFileName(file);
-                fileModels.Add(new FileModel() { Filename = fileName, Filepath =FMTMenuItemPath + @"\\"+ fileName, MimeType = MimeMapping.GetMimeMapping(file) });
+                var filepath = FMTMenuItemPath + @"\\" + fileName;
+
+                fileModels.Add(new FileModel() { Filename = fileName, Filepath = filepath, MimeType = MimeMapping.GetMimeMapping(file),Date = File.GetCreationTime(Path.Combine(AppConfiguration.DataPath, filepath)) , Length = file.Length});
             }
             return fileModels;
         }

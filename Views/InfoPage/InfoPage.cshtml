@@ -11,13 +11,13 @@
     }
 }
 <div>
- 
-    <div style="display:inline-block;width:20%;vertical-align: top;" class="overlay">
+
+    <div style="display:inline-block;width:20%;vertical-align: top; padding: 12px 25px 12px 25px; margin-left: -15px; z-index: 1000;">
 
         @Html.ValidationMessage("Error")<br />
         @if (Model == null)
         {
-           
+
         }
         else
         {
@@ -49,16 +49,22 @@
         }
 
     </div>
-    
+
     <div style="display:inline-block;width:80%;vertical-align: top;">
         <div id="current_path"></div>
         </br>
         <div style="width:100%" id="FMTFilesDIV"></div>
+        </br>
         <div style="width:100%" id="FMTFileUpload">
 
         </div>
     </div>
 </div>
+
+<div class="loading-overlay">
+    <div class="spin-loader"></div>
+</div>
+
 <script type="text/javascript">
 
     function treeView() {
@@ -67,7 +73,7 @@
 
     SelectedValue = '';
 
-    function onSelect(e) {  
+    function onSelect(e) {
         var val = treeView().getItemValue(e.item);
 
         SelectedValue = val;
@@ -91,11 +97,11 @@
         for (index = 3; index < current_path_arr.length; ++index) {
             if (current_path_arr[index].length > 1) {
                 navigation_path = navigation_path + "__" + current_path_arr[index];
-                current_path = current_path + '  <b onclick="navigate_to_node(\'' + navigation_path  +'\');"> / ' + current_path_arr[index] + "</b>";
+                current_path = current_path + '  <b onclick="navigate_to_node(\'' + navigation_path  +'\');">' + current_path_arr[index] + "</b> / ";
             }
         }
 
-        $("#current_path").html(current_path);
+        $("#current_path").html(current_path.slice(0, -2));
 
     }
 
@@ -108,7 +114,7 @@
     }
 
 
-    function click_node() {       
+    function click_node() {
         jQuery("#" + jQuery.urlParam('node_id')).click();
     }
 
@@ -117,4 +123,31 @@
         jQuery("#" + node_id).click();
     }
 
+    var $loading = $('.loading-overlay').hide();
+    //Attach the event handler to any element
+    $(document)
+        .ajaxStart(function () {
+            //ajax request went so show the loading image
+            $loading.show();
+        })
+        .ajaxStop(function () {
+            //got response so hide the loading image
+            $loading.hide();
+        });
+
 </script>
+
+<style>
+    .loading-overlay {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        opacity: 0.6;
+    }
+
+.spin-loader { height: 100px; background: url("/Areas/FMT/Images/loading.gif") no-repeat center center transparent; position: relative; top: 25%; }
+</style>

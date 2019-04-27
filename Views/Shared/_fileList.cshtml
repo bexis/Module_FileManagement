@@ -4,25 +4,44 @@
 
 @model List<FileModel>
 
-
-@using (Html.BeginForm("FileList", "BaseFileManagement", new { area = "FMT" }, FormMethod.Get))
+@using (Html.BeginForm("FileList", "BaseFileManagement", new
 {
+    area = "FMT"
+}, FormMethod.Get))
+{
+    if (Model.Any())
+    {
 
-    <b>Files :</b>
-    <ul>
-        @foreach (FileModel file in Model)
-        {
-        <li>
-                @Html.ActionLink(file.Filename, "DownloadFile", "Data", new { area = "DDM", path = file.Filepath, mimeType = file.MimeType }, new { @class = "bx bx-grid-function bx-download" })
-            &nbsp;&nbsp;<img src="~/Areas/FMT/Images/FMT_Images/Delete.ico" width="24px" style="cursor:pointer;" id="btnDelete" onclick="DeleteFMTFile('@file.Filepath')" />
-        </li>
-        }
-        @if (!Model.Any())
-        {
-            <li>Not found.</li>
-        }
-    </ul>
+        <table>
+            <tr><th>File name</th><th>Size</th><th>Date</th><th>Delete</th></tr>
+            @foreach (FileModel file in Model)
+            {
+                string filesize;
+                if (file.Length > 1048576)
+                {
+                    filesize = (file.Length / 1048576).ToString() + " MB";
+                }
+                else
+                {
+                    filesize = (file.Length).ToString() + " Kb";
+                }
 
+                <tr>
+                    <td>@Html.ActionLink(linkText: file.Filename, actionName: "DownloadFile", controllerName: "BaseAdminFileManagement", routeValues: new { path = file.Filepath, mimeType = file.MimeType }, htmlAttributes: null)</td>
+                    <td>@filesize</td>
+                    <td>@file.Date.ToString("dd-MM-yyyy")</td>
+                    <td>
+                        <div class="bx bx-grid-function bx-trash" id="btnDelete" onclick="DeleteFMTFile('@file.Filepath')"></div>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    }
+   else
+    {
+        <span>No files.</span>
+    }
 }
 <script type="text/javascript">
     function DeleteFMTFile(path)
@@ -36,4 +55,6 @@
             });
         }
     }
+
+
 </script>
