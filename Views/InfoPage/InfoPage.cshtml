@@ -97,7 +97,7 @@
         for (index = 3; index < current_path_arr.length; ++index) {
             if (current_path_arr[index].length > 1) {
                 navigation_path = navigation_path + "__" + current_path_arr[index];
-                current_path = current_path + '  <b onclick="navigate_to_node(\'' + navigation_path  +'\');">' + current_path_arr[index] + "</b> / ";
+                current_path = current_path + '  <b onclick="navigate_to_node(\'' + navigation_path + '\');">' + current_path_arr[index].match(/[A-Z][a-z]+|[0-9]+/g).join(" ") + "</b> / ";
             }
         }
 

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Xml;
@@ -120,7 +121,7 @@ namespace BExIS.Modules.FMT.UI.Helper
             var item = new FMTMenuItem();
             item.Name = xmlNode.Attributes["Name"].Value;
             item.Path = GetFMTMenuItemRelativePath(directory);
-            item.Title = xmlNode.Attributes["Title"].Value;
+            item.Title = Regex.Replace(xmlNode.Attributes["Title"].Value, "((?<=[a-z])[A-Z]|[A-Z](?=[a-z]))", " $1");
             item.MenuItems = new List<FMTMenuItem>();
             foreach (XmlNode childXmlNode in xmlNode.ChildNodes)
                 item.MenuItems.Add(GetMenuItems(childXmlNode, directory + @"\\" + childXmlNode.Attributes["Name"].Value));
@@ -173,6 +174,7 @@ namespace BExIS.Modules.FMT.UI.Helper
             doc.Load(el.CreateReader());
             return doc.DocumentElement;
         }
-
+      
     }
+    
 }
