@@ -82,10 +82,11 @@
     function loadFilesAndUploader() {
         val = SelectedValue;
         contr = "InfoPage";
-        $.get('@Url.Action("GetFileLists", "InfoPage", new { area=""})', { menuItemPath: val }, function (data) {
+        adminContr = "InfoPageAdmin";
+        $.get('@Url.Action("GetFileLists", "InfoPage", new { area=""})', { menuItemPath: val, contollerName: adminContr }, function (data) {
             $('#FMTFilesDIV').html(data);
         });
-        $.get('@Url.Action("GetFileUploader", "InfoPageAdmin", new { area = "" })', { menuItemPath: val, cont: contr }, function (data) {
+        $.get('@Url.Action("GetFileUploader", "InfoPageAdmin", new { area = "" })', { menuItemPath: val, contollerName: contr }, function (data) {
             $('#FMTFileUpload').html(data);
         });
 

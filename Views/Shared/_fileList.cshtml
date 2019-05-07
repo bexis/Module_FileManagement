@@ -13,7 +13,8 @@
     {
 
         <table>
-            <tr><th>File name</th><th>Size</th><th>Date</th><th>Delete</th></tr>
+            <tr><th>File name</th><th>Size</th><th>Date</th><th>Delete</th>
+            </tr>
             @foreach (FileModel file in Model)
             {
                 string filesize;
@@ -30,9 +31,12 @@
                     <td>@Html.ActionLink(linkText: file.Filename, actionName: "DownloadFile", controllerName: "BaseAdminFileManagement", routeValues: new { path = file.Filepath, mimeType = file.MimeType }, htmlAttributes: null)</td>
                     <td>@filesize</td>
                     <td>@file.Date.ToString("dd-MM-yyyy")</td>
+                    @if (file.HasRights)
+                    {
                     <td>
                         <div class="bx bx-grid-function bx-trash" id="btnDelete" onclick="DeleteFMTFile('@file.Filepath')"></div>
                     </td>
+                    }
                 </tr>
             }
 

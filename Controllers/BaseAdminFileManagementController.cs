@@ -1,5 +1,4 @@
-﻿using BExIS.Security.Services.Utilities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -7,16 +6,15 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Vaiona.Utils.Cfg;
-using Vaiona.Utils.IO;
 
 namespace BExIS.Modules.Fmt.UI.Controllers
 {
     public class BaseAdminFileManagementController : Controller
     {
-        public ActionResult GetFileUploader(string menuItemPath, string cont)
+        public ActionResult GetFileUploader(string menuItemPath, string contollerName)
         {
             ViewBag.FilePath = menuItemPath;
-            Session["Controller"] = cont;
+            Session["Controller"] = contollerName;
             return PartialView("~/Areas/FMT/Views/Shared/_uploadFile.cshtml");
         }
 
@@ -77,11 +75,8 @@ namespace BExIS.Modules.Fmt.UI.Controllers
 
             message_mail = message_mail + ".";
 
-            var es = new Security.Services.Utilities.EmailService();
-                es.Send(MessageHelper.GetDownloadDatasetHeader(),
-                    message_mail,
-                    ConfigurationManager.AppSettings["SystemEmail"]
-                    );
+            //var es = new Security.Services.Utilities.EmailService();
+            //    es.Send(MessageHelper.GetDownloadDatasetHeader(),message_mail, ConfigurationManager.AppSettings["SystemEmail"]);
 
             return File(Path.Combine(AppConfiguration.DataPath, path), mimeType, title);
         }
@@ -96,6 +91,6 @@ namespace BExIS.Modules.Fmt.UI.Controllers
             catch { }
 
             return !string.IsNullOrWhiteSpace(username) ? username : "DEFAULT";
-        }
+        } 
     }
 }
