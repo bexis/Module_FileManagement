@@ -203,6 +203,7 @@
     <Content Include="Views\Shared\_directoryExplorer.cshtml" />
     <Content Include="Views\Shared\_fileList.cshtml" />
     <Content Include="Views\Shared\_uploadFile.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -212,7 +213,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="fonts\" />
-    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Scripts\" />
     <Folder Include="Views\BaseAdminFileManagement\" />
     <Folder Include="Views\BaseFileManagement\" />
