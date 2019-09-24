@@ -13,8 +13,15 @@
     {
 
         <table>
-            <tr><th>File name</th><th>Size</th><th>Date</th><th>Delete</th>
-            </tr>
+            <tr>
+                <th>File name</th>
+                <th>Size</th>
+                <th>Date</th>
+                @if (Model[0].HasRights)
+                {
+                    <th>Delete</th>
+                }
+                </tr>
             @foreach (FileModel file in Model)
             {
                 string filesize;

@@ -51,20 +51,19 @@ namespace BExIS.Modules.Fmt.UI.Helper
         {
             List<string> controllers = new List<string>();
 
-            string path = Path.Combine(AppConfiguration.AppRoot, @"Areas\FMT\Controllers");
-            string[] fileEntries = Directory.GetFiles(path);
+            string path = Path.Combine(AppConfiguration.AppRoot, @"Areas\FMT\Views");
+            string[] directories = Directory.GetDirectories(path);
 
-            foreach (string r in fileEntries)
+            foreach (string d in directories)
             {
-                string file = Path.GetFileName(r);
-                if (file.StartsWith("Base"))
+                string name = new DirectoryInfo(d).Name;
+               
+                if (name.StartsWith("Base"))
+                    continue;
+                else if(name.StartsWith("Shared"))
                     continue;
                 else
-                {
-                    string[] temp = Regex.Split(file, "Controller");
-                    controllers.Add(temp[0]);
-                }
-
+                    controllers.Add(name);
             }
             return controllers;
         }
