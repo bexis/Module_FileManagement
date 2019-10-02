@@ -2,7 +2,7 @@
 
 namespace BExIS.Modules.Fmt.UI.Controllers
 {
-    public class InfoPageAdminController : BaseAdminFileManagementController
+    public class GeneralAdminController : BaseAdminFileManagementController
     {
       
     }
