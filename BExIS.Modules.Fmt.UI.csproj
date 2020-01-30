@@ -177,12 +177,12 @@
   <ItemGroup>
     <Compile Include="Controllers\BaseAdminFileManagementController.cs" />
     <Compile Include="Controllers\BaseFileManagementController.cs" />
-    <Compile Include="Controllers\FieldworkAdminController.cs" />
-    <Compile Include="Controllers\FieldworkController.cs" />
-    <Compile Include="Controllers\GeneralAdminController.cs" />
-    <Compile Include="Controllers\GeneralController.cs" />
-    <Compile Include="Controllers\InternalAdminController.cs" />
-    <Compile Include="Controllers\InternalController.cs" />
+    <Compile Include="Controllers\FieldworkFileAdminController.cs" />
+    <Compile Include="Controllers\FieldworkFilesController.cs" />
+    <Compile Include="Controllers\GeneralFilesAdminController.cs" />
+    <Compile Include="Controllers\GeneralFilesController.cs" />
+    <Compile Include="Controllers\InternalFilesAdminController.cs" />
+    <Compile Include="Controllers\InternalFilesController.cs" />
     <Compile Include="FMTModule.cs" />
     <Compile Include="Helper\FmtSeedDataGenerator.cs" />
     <Compile Include="Helper\MenuHelper.cs" />
@@ -202,13 +202,13 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="web.config" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\General\General.cshtml" />
+    <Content Include="Views\GeneralFiles\General.cshtml" />
     <Content Include="Views\Shared\_directoryExplorer.cshtml" />
     <Content Include="Views\Shared\_fileList.cshtml" />
     <Content Include="Views\Shared\_uploadFile.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
-    <Content Include="Views\Internal\Internal.cshtml" />
-    <Content Include="Views\Fieldwork\Fieldwork.cshtml" />
+    <Content Include="Views\InternalFiles\Internal.cshtml" />
+    <Content Include="Views\FieldworkFiles\Fieldwork.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -221,9 +221,9 @@
     <Folder Include="Scripts\" />
     <Folder Include="Views\BaseAdminFileManagement\" />
     <Folder Include="Views\BaseFileManagement\" />
-    <Folder Include="Views\FieldworkAdmin\" />
-    <Folder Include="Views\GeneralAdmin\" />
-    <Folder Include="Views\InternalAdmin\" />
+    <Folder Include="Views\FieldworkFilesAdmin\" />
+    <Folder Include="Views\GeneralFilesAdmin\" />
+    <Folder Include="Views\InternalFilesAdmin\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Components\AAA\BExIS.Security.Entities\BExIS.Security.Entities.csproj">

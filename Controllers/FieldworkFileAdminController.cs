@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace BExIS.Modules.Fmt.UI.Controllers
 {
-    public class InternalAdminController : BaseAdminFileManagementController
+    public class FieldworkFileAdminController : BaseAdminFileManagementController
     {
        
     }
