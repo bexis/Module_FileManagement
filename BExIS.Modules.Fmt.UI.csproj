@@ -202,13 +202,13 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="web.config" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\GeneralFiles\General.cshtml" />
+    <Content Include="Views\GeneralFiles\GeneralFiles.cshtml" />
     <Content Include="Views\Shared\_directoryExplorer.cshtml" />
     <Content Include="Views\Shared\_fileList.cshtml" />
     <Content Include="Views\Shared\_uploadFile.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
-    <Content Include="Views\InternalFiles\Internal.cshtml" />
-    <Content Include="Views\FieldworkFiles\Fieldwork.cshtml" />
+    <Content Include="Views\InternalFiles\InternalFiles.cshtml" />
+    <Content Include="Views\FieldworkFiles\FieldworkFiles.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
