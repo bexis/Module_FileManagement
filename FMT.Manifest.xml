@@ -14,22 +14,22 @@
 
     <Export tag="menubar" id="documents" order="7"
             title="Documents" description="FMT desc" icon=""
-            controller="General" action="Index"
+            controller="GeneralFiles" action="Index"
             extends="./menubarRoot" />
 	
     <Export tag="menubar" id="general" order="7"
             title="General" description="FMT desc" icon=""
-            controller="General" action="Index"
+            controller="GeneralFiles" action="Index"
             extends="./menubarRoot/documents" />
 
     <Export tag="menubar" id="internal" order="7"
             title="Internal" description="FMT desc" icon=""
-            controller="Internal" action="Index"
+            controller="InternalFiles" action="Index"
             extends="./menubarRoot/documents" />
 
     <Export tag="menubar" id="fieldworkDocuments" order="5"
          title="Documents" description="Documents" icon=""
-         controller="Fieldwork" action="Index"
+         controller="FieldworkFiles" action="Index"
          extends="./menubarRoot/rbmMenu" />
    
   </Exports>
