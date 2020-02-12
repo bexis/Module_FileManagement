@@ -10,7 +10,7 @@ namespace BExIS.Modules.Fmt.UI.Controllers
     {
         public ActionResult Index(string node_id = "")
         {
-            return RedirectToAction("Show", "Internal", new { area = "FMT", viewName = "Internal", rootMenu = "Internal", node_id = node_id.Replace("\\", "_") });
+            return RedirectToAction("Show", "InternalFiles", new { area = "FMT", viewName = "InternalFiles", rootMenu = "Internal", node_id = node_id.Replace("\\", "_") });
         }
     }
 }
