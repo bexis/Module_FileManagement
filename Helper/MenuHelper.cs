@@ -40,7 +40,7 @@ namespace BExIS.Modules.FMT.UI.Helper
                 xDoc = XDocument.Load(menuConfigPath);
                 xmlDoc.Load(xDoc.CreateReader());
                 foreach (XmlNode node in xmlDoc.SelectNodes("/Item"))
-                    CreateDirectoriesByXmlConfig(node, FMTPath);
+                        CreateDirectoriesByXmlConfig(node, FMTPath);
             }
 
             return xmlDoc;
@@ -160,7 +160,12 @@ namespace BExIS.Modules.FMT.UI.Helper
             item.Path = GetFMTMenuItemRelativePath(directory);
             item.Name = xmlNode.Attributes["Name"].Value;
             item.Title = xmlNode.Attributes["Title"].Value;
-            Directory.CreateDirectory(directory);
+
+            string filenameOnly = System.IO.Path.GetFileName(directory);
+
+            if (filenameOnly.Length==0)
+                Directory.CreateDirectory(directory);
+
             item.MenuItems = new List<FMTMenuItem>();
             foreach (XmlNode childXmlNode in xmlNode.ChildNodes)
             {
