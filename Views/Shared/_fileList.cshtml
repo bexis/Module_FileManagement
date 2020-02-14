@@ -57,12 +57,10 @@
 <script type="text/javascript">
     function DeleteFMTFile(path)
     {
-    alert(path);
         if (confirm("Are you sure you want to delete ?"))
         {
             $.get('@Url.Action("DeleteFile", "BaseAdminFileManagement")', { filePath: path }, function (data) {
                 parent.loadFilesAndUploader();
-                // location.reload();
             });
         }
     }

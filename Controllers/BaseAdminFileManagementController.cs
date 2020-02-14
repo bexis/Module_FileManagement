@@ -39,9 +39,15 @@ namespace BExIS.Modules.Fmt.UI.Controllers
         /// <returns></returns>
         public ActionResult DeleteFile(string filePath)
         {
-  
+            string path = "";
+            path = FMT.UI.Helper.Settings.get("SourcePathToFiles").ToString();
+            if (String.IsNullOrEmpty(path))
+                path = AppConfiguration.DataPath;
+
+
             // Create directory for deleted files if not exists
-            var deletedFilePath = Path.Combine(AppConfiguration.DataPath, "FMT\\Deleted Files");
+            var deletedFilePath = Path.Combine(path, "FMT\\Deleted Files");
+
             BExIS.IO.FileHelper.CreateDicrectoriesIfNotExist(deletedFilePath);
 
             var des = deletedFilePath + "\\" + Path.GetFileName(filePath);
