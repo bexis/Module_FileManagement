@@ -81,12 +81,12 @@
     }
     function loadFilesAndUploader() {
         val = SelectedValue;
-        contr = "General";
-        adminContr = "GeneralAdmin";
-        $.get('@Url.Action("GetFileLists", "General", new { area="FMT"})', { menuItemPath: val, contollerName: adminContr }, function (data) {
+        contr = "GeneralFiles";
+        adminContr = "GeneralFilesAdmin";
+        $.get('@Url.Action("GetFileLists", "GeneralFiles", new { area="FMT"})', { menuItemPath: val, contollerName: adminContr }, function (data) {
             $('#FMTFilesDIV').html(data);
         });
-        $.get('@Url.Action("GetFileUploader", "GeneralAdmin", new { area = "FMT" })', { menuItemPath: val, contollerName: contr }, function (data) {
+        $.get('@Url.Action("GetFileUploader", "GeneralFilesAdmin", new { area = "FMT" })', { menuItemPath: val, contollerName: contr }, function (data) {
             $('#FMTFileUpload').html(data);
         });
 

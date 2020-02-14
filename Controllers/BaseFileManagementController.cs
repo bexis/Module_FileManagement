@@ -62,7 +62,7 @@ namespace BExIS.Modules.Fmt.UI.Controllers
                 Feature feature = features.FirstOrDefault(f => f.Name.Equals(contollerName));
                 if (feature != null)
                 {
-                    if(featurePermissionManager.Exists(user.Id, feature.Id))
+                    if(featurePermissionManager.HasAccess(user.Id, feature.Id))
                     {
                         hasRights = true;
                     }

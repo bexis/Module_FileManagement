@@ -81,13 +81,13 @@
     }
     function loadFilesAndUploader() {
         val = SelectedValue;
-        contr = "Fieldwork";
-        adminContr = "FieldworkAdmin";
-        $.get('@Url.Action("GetFileLists", "Fieldwork", new { area="FMT"})', { menuItemPath: val, contollerName: contr }, function (data) {
+        contr = "FieldworkFiles";
+        adminContr = "FieldworkFilesAdmin";
+        $.get('@Url.Action("GetFileLists", "FieldworkFiles", new { area="FMT"})', { menuItemPath: val, contollerName: contr }, function (data) {
             
             $('#FMTFilesDIV').html(data);
         });
-        $.get('@Url.Action("GetFileUploader", "FieldworkAdmin", new { area = "FMT" })', { menuItemPath: val, contollerName: adminContr }, function (data) {
+        $.get('@Url.Action("GetFileUploader", "FieldworkFilesAdmin", new { area = "FMT" })', { menuItemPath: val, contollerName: adminContr }, function (data) {
             
             $('#FMTFileUpload').html(data);
         });

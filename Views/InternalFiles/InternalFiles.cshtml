@@ -81,12 +81,12 @@
     }
     function loadFilesAndUploader() {
         val = SelectedValue;
-        contr = "Internal";
-        adminContr = "InternalAdmin";
-        $.get('@Url.Action("GetFileLists", "Internal", new { area="FMT"})', { menuItemPath: val, contollerName: adminContr }, function (data) {
+        contr = "InternalFiles";
+        adminContr = "InternalFilesAdmin";
+        $.get('@Url.Action("GetFileLists", "InternalFiles", new { area="FMT"})', { menuItemPath: val, contollerName: adminContr }, function (data) {
             $('#FMTFilesDIV').html(data);
         });
-        $.get('@Url.Action("GetFileUploader", "InternalAdmin", new { area = "FMT" })', { menuItemPath: val, contollerName: contr }, function (data) {
+        $.get('@Url.Action("GetFileUploader", "InternalFilesAdmin", new { area = "FMT" })', { menuItemPath: val, contollerName: contr }, function (data) {
             $('#FMTFileUpload').html(data);
         });
 
