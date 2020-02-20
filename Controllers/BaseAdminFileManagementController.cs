@@ -21,9 +21,14 @@ namespace BExIS.Modules.Fmt.UI.Controllers
 
         public ActionResult SubmitFile(HttpPostedFileBase[] SelectFileUploaders, string filePath)
         {
+            string folderpath = "";
+            folderpath = FMT.UI.Helper.Settings.get("SourcePathToFiles").ToString();
+            if (String.IsNullOrEmpty(folderpath))
+                folderpath = AppConfiguration.DataPath;
+
             foreach (var SelectFileUploader in SelectFileUploaders)
             {
-                string newFilePath = Path.Combine(AppConfiguration.DataPath, filePath, SelectFileUploader.FileName);
+                string newFilePath = Path.Combine(folderpath, filePath, SelectFileUploader.FileName);
                 SelectFileUploader.SaveAs(newFilePath);
             }
             string controller = Session["Controller"].ToString();
@@ -39,14 +44,14 @@ namespace BExIS.Modules.Fmt.UI.Controllers
         /// <returns></returns>
         public ActionResult DeleteFile(string filePath)
         {
-            string path = "";
-            path = FMT.UI.Helper.Settings.get("SourcePathToFiles").ToString();
-            if (String.IsNullOrEmpty(path))
-                path = AppConfiguration.DataPath;
+            string folderpath = "";
+            folderpath = FMT.UI.Helper.Settings.get("SourcePathToFiles").ToString();
+            if (String.IsNullOrEmpty(folderpath))
+                folderpath = AppConfiguration.DataPath;
 
 
             // Create directory for deleted files if not exists
-            var deletedFilePath = Path.Combine(path, "FMT\\Deleted Files");
+            var deletedFilePath = Path.Combine(folderpath, "FMT\\Deleted Files");
 
             BExIS.IO.FileHelper.CreateDicrectoriesIfNotExist(deletedFilePath);
 
@@ -58,34 +63,12 @@ namespace BExIS.Modules.Fmt.UI.Controllers
             }
             
             // Move file from source to "Deleted Files" folder
-            System.IO.File.Move(Path.Combine(AppConfiguration.DataPath, filePath), des);
+            System.IO.File.Move(Path.Combine(folderpath, filePath), des);
 
             return null;
         }
 
-        public ActionResult DownloadFile(string path, string mimeType)
-        {
-           
-            string title = path.Split('\\').Last();
-            string message = string.Format("file was downloaded");
-            string userName = GetUsernameOrDefault();
-            Vaiona.Logging.LoggerFactory.LogCustom(message);
-
-            string message_mail = $"Dataset <b>\"{title}\"</b> with id was downloaded";
-
-
-            if (!string.IsNullOrEmpty(userName))
-            {
-                message_mail += $" by <b>{userName}</b>";
-            }
-
-            message_mail = message_mail + ".";
-
-            //var es = new Security.Services.Utilities.EmailService();
-            //    es.Send(MessageHelper.GetDownloadDatasetHeader(),message_mail, ConfigurationManager.AppSettings["SystemEmail"]);
-
-            return File(Path.Combine(AppConfiguration.DataPath, path), mimeType, title);
-        }
+      
 
         public string GetUsernameOrDefault()
         {

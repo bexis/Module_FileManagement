@@ -4,6 +4,12 @@
 
 @model List<FMTMenuItem>
 
+@section Information
+{
+   
+}
+
+
 @{
     if (ViewBag.UseLayout == null)
     {
@@ -83,12 +89,12 @@
         val = SelectedValue;
         contr = "FieldworkFiles";
         adminContr = "FieldworkFilesAdmin";
-        $.get('@Url.Action("GetFileLists", "FieldworkFiles", new { area="FMT"})', { menuItemPath: val, contollerName: contr }, function (data) {
-            
+        $.get('@Url.Action("GetFileLists", "FieldworkFiles", new { area="FMT"})', { menuItemPath: val, contollerName: adminContr }, function (data) {
+
             $('#FMTFilesDIV').html(data);
         });
-        $.get('@Url.Action("GetFileUploader", "FieldworkFilesAdmin", new { area = "FMT" })', { menuItemPath: val, contollerName: adminContr }, function (data) {
-            
+        $.get('@Url.Action("GetFileUploader", "FieldworkFilesAdmin", new { area = "FMT" })', { menuItemPath: val, contollerName: contr }, function (data) {
+
             $('#FMTFileUpload').html(data);
         });
 
@@ -152,5 +158,10 @@
         opacity: 0.6;
     }
 
-.spin-loader { height: 100px; background: url("/Areas/FMT/Images/loading.gif") no-repeat center center transparent; position: relative; top: 25%; }
+    .spin-loader {
+        height: 100px;
+        background: url("/Areas/FMT/Images/loading.gif") no-repeat center center transparent;
+        position: relative;
+        top: 25%;
+    }
 </style>

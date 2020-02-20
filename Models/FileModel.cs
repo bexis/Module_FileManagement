@@ -54,18 +54,18 @@ namespace BExIS.Modules.FMT.UI.Models
 
         internal static List<FileModel> GetFileModelList(String FMTMenuItemPath, bool hasRights)
         {
-            string path = "";
-            path = Helper.Settings.get("SourcePathToFiles").ToString();
-            if (String.IsNullOrEmpty(path))
-                path = AppConfiguration.DataPath;
+            string folderpath = "";
+            folderpath = Helper.Settings.get("SourcePathToFiles").ToString();
+            if (String.IsNullOrEmpty(folderpath))
+                folderpath = AppConfiguration.DataPath;
 
             var fileModels = new List<FileModel>();
-            foreach (var file in Directory.GetFiles(Path.Combine(path, FMTMenuItemPath)))
+            foreach (var file in Directory.GetFiles(Path.Combine(folderpath, FMTMenuItemPath)))
             {
                 var fileName = Path.GetFileName(file);
                 var filepath = FMTMenuItemPath + @"\\" + fileName;
 
-                fileModels.Add(new FileModel() { Filename = fileName, Filepath = filepath, MimeType = MimeMapping.GetMimeMapping(file), Date = File.GetCreationTime(Path.Combine(AppConfiguration.DataPath, filepath)), Length = file.Length, HasRights = hasRights });
+                fileModels.Add(new FileModel() { Filename = fileName, Filepath = filepath, MimeType = MimeMapping.GetMimeMapping(file), Date = File.GetCreationTime(Path.Combine(folderpath, filepath)), Length = file.Length, HasRights = hasRights });
             }
             return fileModels;
         }

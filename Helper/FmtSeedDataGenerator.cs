@@ -58,9 +58,9 @@ namespace BExIS.Modules.Fmt.UI.Helper
             {
                 string name = new DirectoryInfo(d).Name;
                
-                if (name.StartsWith("Base"))
-                    continue;
-                else if(name.StartsWith("Shared"))
+                //if (name.StartsWith("Base"))
+                //    continue;
+                if(name.StartsWith("Shared"))
                     continue;
                 else
                     controllers.Add(name);

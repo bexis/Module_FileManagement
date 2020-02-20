@@ -9,6 +9,10 @@ using BExIS.Security.Services.Authorization;
 using BExIS.Security.Services.Subjects;
 using BExIS.Security.Entities.Objects;
 using BExIS.Security.Services.Objects;
+using Vaiona.Utils.Cfg;
+using System.IO;
+using Vaiona.Web.Mvc.Models;
+using Vaiona.Web.Extensions;
 
 namespace BExIS.Modules.Fmt.UI.Controllers
 {
@@ -17,8 +21,9 @@ namespace BExIS.Modules.Fmt.UI.Controllers
 
         public ActionResult Show(string viewName, string rootMenu)
         {
+            ViewBag.Title = PresentationModel.GetViewTitleForTenant(viewName, this.Session.GetTenant());
 
-            if(String.IsNullOrEmpty(rootMenu))
+            if (String.IsNullOrEmpty(rootMenu))
                 ModelState.AddModelError("Error", "Please enter a menu root to the url!");
             if (String.IsNullOrEmpty(viewName))
                 ModelState.AddModelError("Error", "Please enter a view name to the url!");
@@ -71,6 +76,35 @@ namespace BExIS.Modules.Fmt.UI.Controllers
             }
             var fileModelList = FileModel.GetFileModelList(menuItemPath, hasRights);
             return PartialView("~/Areas/FMT/Views/Shared/_fileList.cshtml", fileModelList);
+        }
+
+        public ActionResult DownloadFile(string path, string mimeType)
+        {
+
+            string title = path.Split('\\').Last();
+            string message = string.Format("file was downloaded");
+            string userName = GetUsernameOrDefault();
+            Vaiona.Logging.LoggerFactory.LogCustom(message);
+
+            string message_mail = $"Dataset <b>\"{title}\"</b> with id was downloaded";
+
+
+            if (!string.IsNullOrEmpty(userName))
+            {
+                message_mail += $" by <b>{userName}</b>";
+            }
+
+            message_mail = message_mail + ".";
+
+            //var es = new Security.Services.Utilities.EmailService();
+            //    es.Send(MessageHelper.GetDownloadDatasetHeader(),message_mail, ConfigurationManager.AppSettings["SystemEmail"]);
+
+            string folderpath = "";
+            folderpath = BExIS.Modules.FMT.UI.Helper.Settings.get("SourcePathToFiles").ToString();
+            if (String.IsNullOrEmpty(path))
+                folderpath = AppConfiguration.DataPath;
+
+            return File(Path.Combine(folderpath, path), mimeType, title);
         }
 
         public string GetUsernameOrDefault()

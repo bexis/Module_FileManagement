@@ -177,7 +177,7 @@
   <ItemGroup>
     <Compile Include="Controllers\BaseAdminFileManagementController.cs" />
     <Compile Include="Controllers\BaseFileManagementController.cs" />
-    <Compile Include="Controllers\FieldworkFileAdminController.cs" />
+    <Compile Include="Controllers\FieldworkFilesAdminController.cs" />
     <Compile Include="Controllers\FieldworkFilesController.cs" />
     <Compile Include="Controllers\GeneralFilesAdminController.cs" />
     <Compile Include="Controllers\GeneralFilesController.cs" />

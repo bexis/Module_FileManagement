@@ -35,7 +35,7 @@
                 }
 
                 <tr>
-                    <td>@Html.ActionLink(linkText: file.Filename, actionName: "DownloadFile", controllerName: "BaseAdminFileManagement", routeValues: new { path = file.Filepath, mimeType = file.MimeType }, htmlAttributes: null)</td>
+                    <td>@Html.ActionLink(linkText: file.Filename, actionName: "DownloadFile", controllerName: "BaseFileManagement", routeValues: new { path = file.Filepath, mimeType = file.MimeType }, htmlAttributes: null)</td>
                     <td>@filesize</td>
                     <td>@file.Date.ToString("dd-MM-yyyy")</td>
                     @if (file.HasRights)
