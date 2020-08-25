@@ -58,8 +58,9 @@ namespace BExIS.Modules.Fmt.UI.Controllers
             //check user permissions for delete
             using (var featurePermissionManager = new FeaturePermissionManager())
             using (var featureManager = new FeatureManager())
+            using (UserManager userManager = new UserManager())
             {
-                UserManager userManager = new UserManager();
+
                 var userTask = userManager.FindByNameAsync(GetUsernameOrDefault());
                 userTask.Wait();
                 var user = userTask.Result;
@@ -67,15 +68,15 @@ namespace BExIS.Modules.Fmt.UI.Controllers
                 Feature feature = features.FirstOrDefault(f => f.Name.Equals(contollerName));
                 if (feature != null)
                 {
-                    if(featurePermissionManager.HasAccess(user.Id, feature.Id))
+                    if (featurePermissionManager.HasAccess(user.Id, feature.Id))
                     {
                         hasRights = true;
                     }
                 }
 
+                var fileModelList = FileModel.GetFileModelList(menuItemPath, hasRights);
+                return PartialView("~/Areas/FMT/Views/Shared/_fileList.cshtml", fileModelList);
             }
-            var fileModelList = FileModel.GetFileModelList(menuItemPath, hasRights);
-            return PartialView("~/Areas/FMT/Views/Shared/_fileList.cshtml", fileModelList);
         }
 
         public ActionResult DownloadFile(string path, string mimeType)

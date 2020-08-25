@@ -61,15 +61,17 @@ namespace BExIS.Modules.FMT.UI.Helper
 
             if (!String.IsNullOrEmpty(roleName))
             {
-                UserManager userManager = new UserManager();
-                var userTask = userManager.FindByNameAsync(userName);
-                userTask.Wait();
-                var user = userTask.Result;
+                using (UserManager userManager = new UserManager())
+                {
+                    var userTask = userManager.FindByNameAsync(userName);
+                    userTask.Wait();
+                    var user = userTask.Result;
 
-                if (user.Groups.Select(a => a.Name).Contains(roleName))
-                    return true;
-                else
-                    return false;
+                    if (user.Groups.Select(a => a.Name).Contains(roleName))
+                        return true;
+                    else
+                        return false;
+                }
             }
             else
                 return false;
