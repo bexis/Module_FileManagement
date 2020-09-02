@@ -31,7 +31,7 @@
 </Items>
  ```
  
- - Set real path to file in Workspace/FMT/Fmt.Settings.xml. We need this because sometimes file in the default Data folder only shortcuts. The system canot read shortcut.
+ - Set real path to FMT listed files in Workspace/FMT/Fmt.Settings.xml. We need this because sometimes shortcuts to real files in the default Data folder. The system canot read shortcut.
  
   ```XML
 <!--Path to source shortcut-->
