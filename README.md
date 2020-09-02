@@ -2,14 +2,15 @@
 
 
 1. [Features](#Features)
-2. [How to use / Workflow](#how_to)
-3. [Installtion](#install)
+2. [Installtion](#install)
+3. [How to use / Workflow](#how_to)
 4. [Dependencies](#depend)
 
 
 
 ## Installation <a name="install"></a>
-- edit XML file in Workspace FMT/Menu-Config.xml which describes the dirctory struture
+
+- Edit XML file in Workspace/FMT/Menu-Config.xml which describes the dirctory struture
 
  ```XML
 <Item Name="FileManagement" Title="FileManagement">
@@ -25,12 +26,20 @@
      ...
     </Items>
   <Items Name="menu3" Title="menu3" Group="groupwithpermission3"/>
- ...
- ...
+  ...
+  ...
 </Items>
  ```
+ 
+ - Set real path to file in Workspace/FMT/Fmt.Settings.xml. We need this because sometimes file in the default Data folder only shortcuts. The system canot read shortcut.
+ 
+  ```XML
+<!--Path to source shortcut-->
+  <entry key="SourcePathToFiles" value="C:\Data\Temp\FMT_Temp" type="string"/>
+  ```
+ 
+ - make sure that for all FMT views the admin folder in Views exsits if you are publish the module
 
-- adjust file ... and ...
 
 ## Dependencies to other Modules
 
