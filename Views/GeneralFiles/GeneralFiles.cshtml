@@ -21,8 +21,9 @@
         }
         else
         {
-            @Html.Telerik().TreeView().Name("TreeView").ShowCheckBox(false).ExpandAll(true).ClientEvents(events => events
+            @Html.Telerik().TreeView().Name("TreeView").ShowCheckBox(false).ExpandAll(false).ClientEvents(events => events
                                                        .OnSelect("onSelect").OnLoad("click_node")
+                                                       
                                                       ).BindTo(Model, mappings =>
                                                       {
                                                           mappings.For<FMTMenuItem>
@@ -79,6 +80,7 @@
         SelectedValue = val;
         loadFilesAndUploader();
     }
+
     function loadFilesAndUploader() {
         val = SelectedValue;
         contr = "GeneralFiles";
