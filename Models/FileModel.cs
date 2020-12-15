@@ -60,12 +60,15 @@ namespace BExIS.Modules.FMT.UI.Models
                 folderpath = AppConfiguration.DataPath;
 
             var fileModels = new List<FileModel>();
-            foreach (var file in Directory.GetFiles(Path.Combine(folderpath, FMTMenuItemPath)))
+            DirectoryInfo di = new DirectoryInfo(Path.Combine(folderpath, FMTMenuItemPath));
+            FileInfo[] fiArr = di.GetFiles();
+
+            foreach (FileInfo file in fiArr)
             {
-                var fileName = Path.GetFileName(file);
+                var fileName = Path.GetFileName(file.Name);
                 var filepath = FMTMenuItemPath + @"\\" + fileName;
 
-                fileModels.Add(new FileModel() { Filename = fileName, Filepath = filepath, MimeType = MimeMapping.GetMimeMapping(file), Date = File.GetCreationTime(Path.Combine(folderpath, filepath)), Length = file.Length, HasRights = hasRights });
+                fileModels.Add(new FileModel() { Filename = fileName, Filepath = filepath, MimeType = file.Extension, Date = File.GetCreationTime(Path.Combine(folderpath, filepath)), Length = file.Length, HasRights = hasRights });
             }
             return fileModels;
         }
