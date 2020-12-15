@@ -51,34 +51,39 @@ namespace BExIS.Modules.FMT.UI.Helper
         internal bool HasUserAccessRights(string root, string userName)
         {
             XmlDocument xmlDoc = GetMenuXmlDoc();
-            string roleName;
+            string[] roleNames;
+            bool hasRights = false;
+
             try
             {
-                roleName = xmlDoc.SelectSingleNode(string.Format("//Items[@Name='{0}']", root)).Attributes.GetNamedItem("Group").Value;
+                string temp = xmlDoc.SelectSingleNode(string.Format("//Items[@Name='{0}']", root)).Attributes.GetNamedItem("Group").Value;
+                roleNames = temp.Split(',');
             }
             catch (Exception ex)
             {
                 throw ex;
             }
 
-            if (!String.IsNullOrEmpty(roleName))
+            if (roleNames.Length > 0)
             {
                 using (UserManager userManager = new UserManager())
                 {
-                    var userTask = userManager.FindByNameAsync(userName);
-                    userTask.Wait();
-                    var user = userTask.Result;
+                    foreach (string roleName in roleNames)
+                    {
+                        var userTask = userManager.FindByNameAsync(userName);
+                        userTask.Wait();
+                        var user = userTask.Result;
 
-                    if (user.Groups.Select(a => a.Name).Contains(roleName))
-                        return true;
-                    else
-                        return false;
+                        if (user.Groups.Select(a => a.Name).Contains(roleName))
+                        {
+                            hasRights = true;
+                            break;
+                        }
+                    }
                 }
             }
-            else
-                return false;
 
-           
+            return hasRights;
         }
 
         internal List<FMTMenuItem> GetMenu(string root)
