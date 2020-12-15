@@ -23,7 +23,9 @@ namespace BExIS.Modules.FMT.UI.Helper
             string FMTPath = Path.Combine(AppConfiguration.DataPath, "FMT");
             if (!Directory.Exists(FMTPath))
                 Directory.CreateDirectory(FMTPath);
-            string menuConfigPath = Path.Combine(FMTPath, "Menu-Config.xml");
+
+            string menuConfigPath = Path.Combine(AppConfiguration.GetModuleWorkspacePath("FMT"), "Menu-Config.xml");
+
             XDocument xDoc = null;// 
             XmlDocument xmlDoc = new XmlDocument();
             //Create config file from folders if there isn't
