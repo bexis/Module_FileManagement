@@ -101,7 +101,8 @@
 
             $('#FMTFilesDIV').html(data);
         });
-        if (@ViewBag.HasAdminRights) {
+        var adminrights = @Html.Raw(Json.Encode(ViewData["AdminRights"]));
+        if (adminrights) {
             $.get('@Url.Action("GetFileUploader", "FieldworkFilesAdmin", new { area = "FMT" })', { menuItemPath: val, contollerName: adminContr }, function (data) {
 
                 $('#FMTFileUpload').html(data);

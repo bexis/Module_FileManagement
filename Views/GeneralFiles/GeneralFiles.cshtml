@@ -5,6 +5,7 @@
 @model List<FMTMenuItem>
 
 @{
+
     if (ViewBag.UseLayout == null)
     {
         Layout = null;
@@ -23,7 +24,7 @@
         {
             @Html.Telerik().TreeView().Name("TreeView").ShowCheckBox(false).ExpandAll(false).ClientEvents(events => events
                                                        .OnSelect("onSelect").OnLoad("click_node")
-                                                       
+
                                                       ).BindTo(Model, mappings =>
                                                       {
                                                           mappings.For<FMTMenuItem>
@@ -41,7 +42,7 @@
                                                           {
                                                               item.Text = subMenuItem.Title;
                                                               item.Value = subMenuItem.Path;
-                                                              item.LinkHtmlAttributes["id"] = subMenuItem.Path.Replace("\\","_");
+                                                              item.LinkHtmlAttributes["id"] = subMenuItem.Path.Replace("\\", "_");
                                                               item.ImageUrl = subMenuItem.MenuItems.Any() ? "~/Areas/FMT/Images/FMT_Images/Folders.png" : "~/Areas/FMT/Images/FMT_Images/Folder.png";
                                                           }));
                                                       });
@@ -88,7 +89,9 @@
         $.get('@Url.Action("GetFileLists", "GeneralFiles", new { area="FMT"})', { menuItemPath: val, contollerName: contr }, function (data) {
             $('#FMTFilesDIV').html(data);
         });
-        if (@ViewBag.HasAdminRights) {
+        var adminrights = @Html.Raw(Json.Encode(ViewData["AdminRights"]));
+
+        if (adminrights) {
             $.get('@Url.Action("GetFileUploader", "GeneralFilesAdmin", new { area = "FMT" })', { menuItemPath: val, contollerName: adminContr }, function (data) {
                 $('#FMTFileUpload').html(data);
             });
@@ -154,5 +157,10 @@
         opacity: 0.6;
     }
 
-.spin-loader { height: 100px; background: url("/Areas/FMT/Images/loading.gif") no-repeat center center transparent; position: relative; top: 25%; }
+    .spin-loader {
+        height: 100px;
+        background: url("/Areas/FMT/Images/loading.gif") no-repeat center center transparent;
+        position: relative;
+        top: 25%;
+    }
 </style>

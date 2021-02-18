@@ -86,7 +86,8 @@
         $.get('@Url.Action("GetFileLists", "InternalFiles", new { area="FMT"})', { menuItemPath: val, contollerName: contr }, function (data) {
             $('#FMTFilesDIV').html(data);
         });
-        if (@ViewBag.HasAdminRights) {
+        var adminrights = @Html.Raw(Json.Encode(ViewData["AdminRights"]));
+        if (adminrights) {
             $.get('@Url.Action("GetFileUploader", "InternalFilesAdmin", new { area = "FMT" })', { menuItemPath: val, contollerName: adminContr }, function (data) {
                 $('#FMTFileUpload').html(data);
             });

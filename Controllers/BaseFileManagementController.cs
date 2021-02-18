@@ -55,7 +55,7 @@ namespace BExIS.Modules.Fmt.UI.Controllers
             //if (string.IsNullOrEmpty(rootMenu))
 
             ViewBag.UseLayout = true;
-            ViewBag.HasAdminRights = hasAdminRights;
+            ViewData["AdminRights"] = hasAdminRights;
             
 
             return View(viewName, menus);
