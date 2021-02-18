@@ -1,11 +1,14 @@
 ﻿@using Telerik.Web.Mvc.UI
 @using BExIS.Modules.FMT.UI.Models
 
-@using (Html.BeginForm("SubmitFile", "BaseAdminFileManagement", new { area = "FMT", enctype = "multipart/form-data" }, FormMethod.Post))
+
+
+
+@using (Html.BeginForm("SubmitFile", @Session["Controller"].ToString(), new { area = "FMT", enctype = "multipart/form-data" }, FormMethod.Post))
 {
     <b>Upload File:</b>
     <input type="hidden" name="filePath" id="filePath" value="@ViewBag.FilePath" />
-  
+
     @(Html.Telerik().Upload()
                                                 .Name("SelectFileUploaders")
                                                 .Multiple(true)
@@ -13,9 +16,9 @@
                                                 .HtmlAttributes(new { title = "Browse" })
                                                 .ClientEvents(events => events
                                                 .OnSelect("selected")
-                                                .OnRemove("remove")                      
+                                                .OnRemove("remove")
                                                 )
-                                                
+
     )
 
     <button id="submit" type="submit" style="display:none;">Submit</button>

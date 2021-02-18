@@ -85,12 +85,14 @@
         val = SelectedValue;
         contr = "GeneralFiles";
         adminContr = "GeneralFilesAdmin";
-        $.get('@Url.Action("GetFileLists", "GeneralFiles", new { area="FMT"})', { menuItemPath: val, contollerName: adminContr }, function (data) {
+        $.get('@Url.Action("GetFileLists", "GeneralFiles", new { area="FMT"})', { menuItemPath: val, contollerName: contr }, function (data) {
             $('#FMTFilesDIV').html(data);
         });
-        $.get('@Url.Action("GetFileUploader", "GeneralFilesAdmin", new { area = "FMT" })', { menuItemPath: val, contollerName: contr }, function (data) {
-            $('#FMTFileUpload').html(data);
-        });
+        if (@ViewBag.HasAdminRights) {
+            $.get('@Url.Action("GetFileUploader", "GeneralFilesAdmin", new { area = "FMT" })', { menuItemPath: val, contollerName: adminContr }, function (data) {
+                $('#FMTFileUpload').html(data);
+            });
+        }
 
         var current_path_arr = val.split('\\');
 

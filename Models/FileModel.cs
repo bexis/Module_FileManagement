@@ -38,6 +38,8 @@ namespace BExIS.Modules.FMT.UI.Models
         public long Length { get; set; }
         public bool HasRights { get; set; }
 
+        public string controllerName {get; set;}
+
         public FileModel()
         {
         }

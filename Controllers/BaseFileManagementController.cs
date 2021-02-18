@@ -22,6 +22,15 @@ namespace BExIS.Modules.Fmt.UI.Controllers
         public ActionResult Show(string viewName, string rootMenu)
         {
             ViewBag.Title = PresentationModel.GetViewTitleForTenant(viewName, this.Session.GetTenant());
+            bool hasAdminRights = false;
+            using (UserManager userManager = new UserManager())
+            using (FeaturePermissionManager featurePermissionManager = new FeaturePermissionManager())
+            using (FeatureManager featureManager = new FeatureManager())
+            {
+                var user = userManager.FindByNameAsync(HttpContext.User.Identity.Name).Result;
+                var feature = featureManager.FindByName(viewName + "Admin");
+                hasAdminRights =  featurePermissionManager.HasAccess(user.Id, feature.Id);
+            }
 
             if (String.IsNullOrEmpty(rootMenu))
                 ModelState.AddModelError("Error", "Please enter a menu root to the url!");
@@ -46,6 +55,7 @@ namespace BExIS.Modules.Fmt.UI.Controllers
             //if (string.IsNullOrEmpty(rootMenu))
 
             ViewBag.UseLayout = true;
+            ViewBag.HasAdminRights = hasAdminRights;
             
 
             return View(viewName, menus);
@@ -75,6 +85,7 @@ namespace BExIS.Modules.Fmt.UI.Controllers
                 }
 
                 var fileModelList = FileModel.GetFileModelList(menuItemPath, hasRights);
+                fileModelList.ForEach(a => a.controllerName = contollerName);
                 return PartialView("~/Areas/FMT/Views/Shared/_fileList.cshtml", fileModelList);
             }
         }

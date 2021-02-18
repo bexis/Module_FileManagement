@@ -97,14 +97,16 @@
         val = SelectedValue;
         contr = "FieldworkFiles";
         adminContr = "FieldworkFilesAdmin";
-        $.get('@Url.Action("GetFileLists", "FieldworkFiles", new { area="FMT"})', { menuItemPath: val, contollerName: adminContr }, function (data) {
+        $.get('@Url.Action("GetFileLists", "FieldworkFiles", new { area="FMT"})', { menuItemPath: val, contollerName: contr }, function (data) {
 
             $('#FMTFilesDIV').html(data);
         });
-        $.get('@Url.Action("GetFileUploader", "FieldworkFilesAdmin", new { area = "FMT" })', { menuItemPath: val, contollerName: contr }, function (data) {
+        if (@ViewBag.HasAdminRights) {
+            $.get('@Url.Action("GetFileUploader", "FieldworkFilesAdmin", new { area = "FMT" })', { menuItemPath: val, contollerName: adminContr }, function (data) {
 
-            $('#FMTFileUpload').html(data);
-        });
+                $('#FMTFileUpload').html(data);
+            });
+        }
 
         var current_path_arr = val.split('\\');
 

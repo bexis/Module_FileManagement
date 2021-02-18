@@ -5,5 +5,5 @@
   <entry key="key3" value="21" type="Int16"/>
 
   <!--Path to source shortcut-->
-  <entry key="SourcePathToFiles" value="D:\BExIS-workspace\FMTDoc4BEXIS2\" type="string"/>
+  <entry key="SourcePathToFiles" value="C:\Data\Temp\FMT_Temp" type="string"/>
 </settings>
