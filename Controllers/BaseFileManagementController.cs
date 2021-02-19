@@ -19,9 +19,9 @@ namespace BExIS.Modules.Fmt.UI.Controllers
     public class BaseFileManagementController : Controller
     {
 
-        public ActionResult Show(string viewName, string rootMenu)
+        public ActionResult Show(string viewName, string rootMenu, string viewTitle )
         {
-            ViewBag.Title = PresentationModel.GetViewTitleForTenant(viewName, this.Session.GetTenant());
+            ViewBag.Title = PresentationModel.GetViewTitleForTenant(viewTitle, this.Session.GetTenant());
             bool hasAdminRights = false;
             using (UserManager userManager = new UserManager())
             using (FeaturePermissionManager featurePermissionManager = new FeaturePermissionManager())
@@ -53,7 +53,6 @@ namespace BExIS.Modules.Fmt.UI.Controllers
 
 
             //if (string.IsNullOrEmpty(rootMenu))
-
             ViewBag.UseLayout = true;
             ViewData["AdminRights"] = hasAdminRights;
             
