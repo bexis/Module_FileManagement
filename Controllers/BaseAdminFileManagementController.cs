@@ -32,6 +32,7 @@ namespace BExIS.Modules.Fmt.UI.Controllers
                 SelectFileUploader.SaveAs(newFilePath);
             }
             string controller = Session["Controller"].ToString();
+            controller = controller.Replace("Admin", "");
             Session["Controller"] = null;
 
             return RedirectToAction("Index", controller, new { node_id = filePath });
