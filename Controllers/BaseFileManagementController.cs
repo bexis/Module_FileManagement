@@ -75,7 +75,7 @@ namespace BExIS.Modules.Fmt.UI.Controllers
                 userTask.Wait();
                 var user = userTask.Result;
                 List<Feature> features = featureManager.FeatureRepository.Get().ToList();
-                Feature feature = features.FirstOrDefault(f => f.Name.Equals(contollerName));
+                Feature feature = features.FirstOrDefault(f => f.Name.Equals(contollerName + "Admin"));
                 if (feature != null)
                 {
                     if (featurePermissionManager.HasAccess(user.Id, feature.Id))
