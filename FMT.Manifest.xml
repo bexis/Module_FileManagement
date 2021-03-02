@@ -27,6 +27,16 @@
             controller="InternalFiles" action="Index"
             extends="./menubarRoot/documents" />
 
+    <Export tag="menubar" id="internal" order="7"
+          title="PhD" description="FMT desc" icon=""
+          controller="PhDFiles" action="Index"
+          extends="./menubarRoot/documents" />
+    
+      <Export tag="menubar" id="internal" order="7"
+            title="Postdoc" description="FMT desc" icon=""
+            controller="PostDocFiles" action="Index"
+            extends="./menubarRoot/documents" />
+
     <Export tag="menubar" id="fieldworkDocuments" order="5"
          title="Documents" description="Documents" icon=""
          controller="FieldworkFiles" action="Index"

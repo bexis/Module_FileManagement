@@ -187,6 +187,10 @@
     <Compile Include="Controllers\GeneralFilesController.cs" />
     <Compile Include="Controllers\InternalFilesAdminController.cs" />
     <Compile Include="Controllers\InternalFilesController.cs" />
+    <Compile Include="Controllers\PhDFilesAdminController.cs" />
+    <Compile Include="Controllers\PhDFilesController.cs" />
+    <Compile Include="Controllers\PostDocFilesAdminController.cs" />
+    <Compile Include="Controllers\PostDocFilesController.cs" />
     <Compile Include="FMTModule.cs" />
     <Compile Include="Helper\FmtSeedDataGenerator.cs" />
     <Compile Include="Helper\MenuHelper.cs" />
@@ -214,6 +218,8 @@
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Views\InternalFiles\InternalFiles.cshtml" />
     <Content Include="Views\FieldworkFiles\FieldworkFiles.cshtml" />
+    <Content Include="Views\PhDFiles\PhDFiles.cshtml" />
+    <Content Include="Views\PostDocFiles\PostDocFiles.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -229,6 +235,8 @@
     <Folder Include="Views\FieldworkFilesAdmin\" />
     <Folder Include="Views\GeneralFilesAdmin\" />
     <Folder Include="Views\InternalFilesAdmin\" />
+    <Folder Include="Views\PhDFilesAdmin\" />
+    <Folder Include="Views\PostDocFilesAdmin\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Components\AAA\BExIS.Security.Entities\BExIS.Security.Entities.csproj">
