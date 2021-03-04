@@ -8,7 +8,7 @@ namespace BExIS.Modules.FMT.UI.Controllers
     {
         public ActionResult Index(string node_id = "")
         {
-            return RedirectToAction("Show", "GeneralFiles", new {area="FMT", viewTitle = "BExIS - General Documents",  viewName= "GeneralFiles", rootMenu= "BeoInformation", node_id = node_id.Replace("\\", "_") });
+            return RedirectToAction("Show", "GeneralFiles", new {area="FMT", viewTitle = "General Documents",  viewName= "GeneralFiles", rootMenu= "BeoInformation", node_id = node_id.Replace("\\", "_") });
         }
     }
 
