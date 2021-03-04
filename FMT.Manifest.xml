@@ -27,12 +27,12 @@
             controller="InternalFiles" action="Index"
             extends="./menubarRoot/documents" />
 
-    <Export tag="menubar" id="internal" order="7"
+    <Export tag="menubar" id="phd" order="7"
           title="PhD" description="FMT desc" icon=""
           controller="PhDFiles" action="Index"
           extends="./menubarRoot/documents" />
     
-      <Export tag="menubar" id="internal" order="7"
+      <Export tag="menubar" id="postdoc" order="7"
             title="Postdoc" description="FMT desc" icon=""
             controller="PostDocFiles" action="Index"
             extends="./menubarRoot/documents" />
