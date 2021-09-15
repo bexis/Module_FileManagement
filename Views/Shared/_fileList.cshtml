@@ -1,8 +1,12 @@
 ﻿@using Telerik.Web.Mvc.UI
 @using BExIS.Modules.FMT.UI.Models
-
-
 @model List<FileModel>
+
+@section scripts
+{
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+}
 
 @using (Html.BeginForm("FileList", "BaseFileManagement", new
 {
@@ -12,49 +16,58 @@
     if (Model.Any())
     {
 
-        <table>
-            <tr>
-                <th>File name</th>
-                <th>Size</th>
-                <th>Date</th>
-                @if (Model[0].HasRights)
-                {
-                    <th>Delete</th>
-                }
-                </tr>
-            @foreach (FileModel file in Model)
-            {
-                string filesize;
-                if (file.Length > 1048576)
-                {
-                    filesize = (file.Length / 1048576).ToString() + " MB";
-                }
-                else
-                {
-                    filesize = (file.Length).ToString() + " Kb";
-                }
-
+        <table id="filesTable" class="display" width="100%">
+            <thead>
                 <tr>
-                    <td>@Html.ActionLink(linkText: file.Filename, actionName: "DownloadFile", controllerName: file.controllerName, routeValues: new { path = file.Filepath, mimeType = file.MimeType }, htmlAttributes: null)</td>
-                    <td>@filesize</td>
-                    <td>@file.Date.ToString("dd-MM-yyyy")</td>
-                    @if (file.HasRights)
+                    <th>File name</th>
+                    <th>Size</th>
+                    <th>Date</th>
+                    @if (Model[0].HasRights)
                     {
-                    <td>
-                        <div class="bx bx-grid-function bx-trash" id="btnDelete" onclick="DeleteFMTFile('@file.Filepath')"></div>
-                    </td>
+                        <th>Delete</th>
                     }
                 </tr>
-            }
+            </thead>
+            <tbody>
+                @foreach (FileModel file in Model)
+                {
+                    string filesize;
+                    if (file.Length > 1048576)
+                    {
+                        filesize = (file.Length / 1048576).ToString() + " MB";
+                    }
+                    else
+                    {
+                        filesize = (file.Length).ToString() + " Kb";
+                    }
+
+                    <tr>
+                        <td>@Html.ActionLink(linkText: file.Filename, actionName: "DownloadFile", controllerName: file.controllerName, routeValues: new { path = file.Filepath, mimeType = file.MimeType }, htmlAttributes: null)</td>
+                        <td>@filesize</td>
+                        <td>@file.Date.ToString("dd-MM-yyyy")</td>
+                        @if (file.HasRights)
+                        {
+                            <td>
+                                <div class="bx bx-grid-function bx-trash" id="btnDelete" onclick="DeleteFMTFile('@file.Filepath')"></div>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
 
         </table>
     }
-   else
+    else
     {
         <span>No files.</span>
     }
 }
 <script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#filesTable').DataTable();
+    });
+
     function DeleteFMTFile(path)
     {
         if (confirm("Are you sure you want to delete ?"))
