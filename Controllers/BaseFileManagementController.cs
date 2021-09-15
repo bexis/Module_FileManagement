@@ -49,7 +49,7 @@ namespace BExIS.Modules.Fmt.UI.Controllers
                 if (!hasUserRights)
                     ModelState.AddModelError("Error", "No access rights for this menu and this page!");
                 else
-                   menus = menuHelper.GetMenu(rootMenu);
+                   menus = menuHelper.GetMenu(rootMenu, userName);
 
 
             //if (string.IsNullOrEmpty(rootMenu))
@@ -63,7 +63,9 @@ namespace BExIS.Modules.Fmt.UI.Controllers
 
         public ActionResult GetFileLists(string menuItemPath, string contollerName)
         {
-            bool hasRights = false;
+            //string menuItem = new DirectoryInfo(menuItemPath).Name;
+
+            bool hasDeleteRights = false;
             //check user permissions for delete
             using (var featurePermissionManager = new FeaturePermissionManager())
             using (var featureManager = new FeatureManager())
@@ -79,14 +81,17 @@ namespace BExIS.Modules.Fmt.UI.Controllers
                 {
                     if (featurePermissionManager.HasAccess(user.Id, feature.Id))
                     {
-                        hasRights = true;
+                        hasDeleteRights = true;
                     }
                 }
 
-                var fileModelList = FileModel.GetFileModelList(menuItemPath, hasRights);
+                var fileModelList = FileModel.GetFileModelList(menuItemPath, hasDeleteRights);
                 fileModelList.ForEach(a => a.controllerName = contollerName);
+
+
                 return PartialView("~/Areas/FMT/Views/Shared/_fileList.cshtml", fileModelList);
             }
+            
         }
 
         public ActionResult DownloadFile(string path, string mimeType)
