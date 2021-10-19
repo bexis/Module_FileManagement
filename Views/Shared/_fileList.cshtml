@@ -65,7 +65,10 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        $('#filesTable').DataTable();
+        $('#filesTable').DataTable({
+            columnDefs: [{ type: 'date', 'targets': [2] }],
+            "order": [[2, "desc"]]
+        });
     });
 
     function DeleteFMTFile(path)
