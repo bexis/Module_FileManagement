@@ -181,6 +181,8 @@
   <ItemGroup>
     <Compile Include="Controllers\BaseAdminFileManagementController.cs" />
     <Compile Include="Controllers\BaseFileManagementController.cs" />
+    <Compile Include="Controllers\DrivingDirectionsFilesAdminController.cs" />
+    <Compile Include="Controllers\DrivingDirectionsFilesController.cs" />
     <Compile Include="Controllers\FieldworkFilesAdminController.cs" />
     <Compile Include="Controllers\FieldworkFilesController.cs" />
     <Compile Include="Controllers\GeneralFilesAdminController.cs" />
@@ -220,6 +222,7 @@
     <Content Include="Views\FieldworkFiles\FieldworkFiles.cshtml" />
     <Content Include="Views\PhDFiles\PhDFiles.cshtml" />
     <Content Include="Views\PostDocFiles\PostDocFiles.cshtml" />
+    <Content Include="Views\DrivingDirectionsFiles\DrivingDirectionsFiles.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -232,6 +235,7 @@
     <Folder Include="Scripts\" />
     <Folder Include="Views\BaseAdminFileManagement\" />
     <Folder Include="Views\BaseFileManagement\" />
+    <Folder Include="Views\DrivingDirectionsFilesAdmin\" />
     <Folder Include="Views\FieldworkFilesAdmin\" />
     <Folder Include="Views\GeneralFilesAdmin\" />
     <Folder Include="Views\InternalFilesAdmin\" />

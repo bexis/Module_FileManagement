@@ -27,12 +27,12 @@
             controller="InternalFiles" action="Index"
             extends="./menubarRoot/documents" />
 
-    <Export tag="menubar" id="internal" order="7"
+    <Export tag="menubar" id="phd" order="7"
           title="PhD" description="FMT desc" icon=""
           controller="PhDFiles" action="Index"
           extends="./menubarRoot/documents" />
     
-      <Export tag="menubar" id="internal" order="7"
+      <Export tag="menubar" id="postdoc" order="7"
             title="Postdoc" description="FMT desc" icon=""
             controller="PostDocFiles" action="Index"
             extends="./menubarRoot/documents" />
@@ -41,6 +41,12 @@
          title="Documents" description="Documents" icon=""
          controller="FieldworkFiles" action="Index"
          extends="./menubarRoot/rbmMenu" />
+    
+        <Export tag="menubar" id="drivingDirectionsDocuments" order="19"
+         title="Driving Directions" description="Driving Directions" icon=""
+         controller="DrivingDirectionsFiles" action="Index"
+         extends="./menubarRoot/pmmMenu" />
+
    
   </Exports>
 </Manifest>
