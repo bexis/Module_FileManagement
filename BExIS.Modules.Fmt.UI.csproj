@@ -217,6 +217,7 @@
     <Content Include="Views\Shared\_directoryExplorer.cshtml" />
     <Content Include="Views\Shared\_fileList.cshtml" />
     <Content Include="Views\Shared\_uploadFile.cshtml" />
+    <Content Include="libman.json" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Views\InternalFiles\InternalFiles.cshtml" />
     <Content Include="Views\FieldworkFiles\FieldworkFiles.cshtml" />
