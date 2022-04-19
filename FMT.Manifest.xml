@@ -38,7 +38,7 @@
             extends="./menubarRoot/documents" />
 
     <Export tag="menubar" id="fieldworkDocuments" order="5"
-         title="Documents" description="Documents" icon=""
+         title="Forms and Permits" description="Forms and Permits" icon=""
          controller="FieldworkFiles" action="Index"
          extends="./menubarRoot/rbmMenu" />
     
