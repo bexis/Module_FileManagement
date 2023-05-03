@@ -183,6 +183,8 @@
     <Compile Include="Controllers\BaseFileManagementController.cs" />
     <Compile Include="Controllers\DrivingDirectionsFilesAdminController.cs" />
     <Compile Include="Controllers\DrivingDirectionsFilesController.cs" />
+    <Compile Include="Controllers\PlotchartFilesController.cs" />
+    <Compile Include="Controllers\PlotchartFilesAdminController.cs" />
     <Compile Include="Controllers\FieldworkFilesAdminController.cs" />
     <Compile Include="Controllers\FieldworkFilesController.cs" />
     <Compile Include="Controllers\GeneralFilesAdminController.cs" />
@@ -226,6 +228,7 @@
     <Content Include="Views\PostDocFiles\PostDocFiles.cshtml" />
     <Content Include="Views\DrivingDirectionsFiles\DrivingDirectionsFiles.cshtml" />
     <Content Include="Views\SocialEcologicalFiles\SocialEcologicalFiles.cshtml" />
+    <Content Include="Views\PlotchartFiles\PlotchartFiles.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -243,6 +246,7 @@
     <Folder Include="Views\GeneralFilesAdmin\" />
     <Folder Include="Views\InternalFilesAdmin\" />
     <Folder Include="Views\PhDFilesAdmin\" />
+    <Folder Include="Views\PlotchartFilesAdmin\" />
     <Folder Include="Views\PostDocFilesAdmin\" />
     <Folder Include="Views\SocialEcologicalFilesAdmin\" />
   </ItemGroup>

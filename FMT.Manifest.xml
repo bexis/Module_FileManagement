@@ -52,6 +52,12 @@
          controller="DrivingDirectionsFiles" action="Index"
          extends="./menubarRoot/pmmMenu" />
 
+	  <Export tag="menubar" id="plotChartPackages" order="11"
+		   title="Plot Chart Packages" description="Download precompiled plot charts" icon=""
+		   controller="PlotchartFiles" action="Index"
+		   extends="./menubarRoot/pmmMenu"
+    />
+
    
   </Exports>
 </Manifest>
