@@ -3,14 +3,26 @@
 
 1. [Features](#Features)
 2. [Installtion](#install)
-3. [How to use / Workflow](#how_to)
-4. [Dependencies](#depend)
+3. [Dependencies](#depend)
 
+## Features <a name="Features"></a>
 
+- Manage files in BEXIS2#
+- Upload, download and delete files
+- Create your own folder where the files are stored structure
+- Use it on different pages
 
 ## Installation <a name="install"></a>
 
+For each page, 2 controllers and 1 views are needed in the backend.
+To have different user access rights options on different pages with file management you need for every site a 2 controllers and a view. One for download files and one to administrate files (upload and delete). The site Controllers must inherit from BaseFileManagementController or BaseAdminFileManagementController.
+This way is chosen because BExIS2 security works only on controller level.
+
+![[Screenshot Controller]](https://github.com/bexis/Module_FileManagement/blob/dev/Docs/Manual/controller_class_diagram.jpg)
+
+
 - Edit XML file in Workspace/FMT/Menu-Config.xml which describes the dirctory struture
+- In the config files it is also possible to assign certain groups to the individual tree branches of the file structure. For this purpose, the BEXIS2 groups are entered comma-separated in the "Group" attribute. 
 
  ```XML
 <Item Name="FileManagement" Title="FileManagement">
@@ -39,8 +51,18 @@
   ```
  
  - make sure that for all FMT views the admin folder in Views exsits if you are publish the module
+ 
 
 
-## Dependencies to other Modules
 
-BExIS.IO ...
+## Dependencies to other Modules <a name="depend"></a>
+
+- BExIS.Modules.FMT.UI.Models;
+- BExIS.Modules.FMT.UI.Helper;
+- BExIS.Security.Services.Authorization;
+- BExIS.Security.Services.Subjects;
+- BExIS.Security.Entities.Objects;
+- BExIS.Security.Services.Objects;
+- Vaiona.Utils.Cfg;
+- Vaiona.Web.Mvc.Models;
+- Vaiona.Web.Extensions

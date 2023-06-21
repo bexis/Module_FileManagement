@@ -183,13 +183,17 @@
     <Compile Include="Controllers\BaseFileManagementController.cs" />
     <Compile Include="Controllers\DrivingDirectionsFilesAdminController.cs" />
     <Compile Include="Controllers\DrivingDirectionsFilesController.cs" />
+    <Compile Include="Controllers\PlotchartFilesController.cs" />
+    <Compile Include="Controllers\PlotchartFilesAdminController.cs" />
     <Compile Include="Controllers\FieldworkFilesAdminController.cs" />
     <Compile Include="Controllers\FieldworkFilesController.cs" />
     <Compile Include="Controllers\GeneralFilesAdminController.cs" />
     <Compile Include="Controllers\GeneralFilesController.cs" />
     <Compile Include="Controllers\InternalFilesAdminController.cs" />
     <Compile Include="Controllers\InternalFilesController.cs" />
+    <Compile Include="Controllers\SocialEcologicalFilesAdminController.cs" />
     <Compile Include="Controllers\PhDFilesAdminController.cs" />
+    <Compile Include="Controllers\SocialEcologicalFilesController.cs" />
     <Compile Include="Controllers\PhDFilesController.cs" />
     <Compile Include="Controllers\PostDocFilesAdminController.cs" />
     <Compile Include="Controllers\PostDocFilesController.cs" />
@@ -217,13 +221,14 @@
     <Content Include="Views\Shared\_directoryExplorer.cshtml" />
     <Content Include="Views\Shared\_fileList.cshtml" />
     <Content Include="Views\Shared\_uploadFile.cshtml" />
-    <Content Include="libman.json" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Views\InternalFiles\InternalFiles.cshtml" />
     <Content Include="Views\FieldworkFiles\FieldworkFiles.cshtml" />
     <Content Include="Views\PhDFiles\PhDFiles.cshtml" />
     <Content Include="Views\PostDocFiles\PostDocFiles.cshtml" />
     <Content Include="Views\DrivingDirectionsFiles\DrivingDirectionsFiles.cshtml" />
+    <Content Include="Views\SocialEcologicalFiles\SocialEcologicalFiles.cshtml" />
+    <Content Include="Views\PlotchartFiles\PlotchartFiles.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -241,7 +246,9 @@
     <Folder Include="Views\GeneralFilesAdmin\" />
     <Folder Include="Views\InternalFilesAdmin\" />
     <Folder Include="Views\PhDFilesAdmin\" />
+    <Folder Include="Views\PlotchartFilesAdmin\" />
     <Folder Include="Views\PostDocFilesAdmin\" />
+    <Folder Include="Views\SocialEcologicalFilesAdmin\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Components\AAA\BExIS.Security.Entities\BExIS.Security.Entities.csproj">

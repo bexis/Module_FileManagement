@@ -151,8 +151,7 @@ namespace BExIS.Modules.FMT.UI.Helper
 
         internal void AppendToRootMenu(XElement newXElement)
         {
-            string FMTPath = Path.Combine(AppConfiguration.DataPath, "FMT");
-            string menuConfigPath = Path.Combine(FMTPath, "Menu-Config.xml");
+            string menuConfigPath = Path.Combine(AppConfiguration.GetModuleWorkspacePath("FMT"), "Menu-Config.xml");
             var xElement = XElement.Load(menuConfigPath);// 
             //looking for the same item and remove it if exist
             var newItemName = newXElement.Attribute("Name").Value;
