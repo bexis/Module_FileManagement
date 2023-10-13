@@ -221,6 +221,8 @@
     <Content Include="Views\Shared\_directoryExplorer.cshtml" />
     <Content Include="Views\Shared\_fileList.cshtml" />
     <Content Include="Views\Shared\_uploadFile.cshtml" />
+    <None Include="Properties\PublishProfiles\BexisServer_2010-testsite.pubxml" />
+    <None Include="Properties\PublishProfiles\BexisServer_BE-Website.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Views\InternalFiles\InternalFiles.cshtml" />
     <Content Include="Views\FieldworkFiles\FieldworkFiles.cshtml" />
