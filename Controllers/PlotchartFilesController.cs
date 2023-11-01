@@ -6,7 +6,7 @@ namespace BExIS.Modules.Fmt.UI.Controllers
     {
         public ActionResult Index(string node_id = "")
         {
-            return RedirectToAction("Show", "PlotchartFiles", new { area = "FMT", viewName = "PlotchartFiles", viewTitle = "Potchart Documents", rootMenu = "PlotchartPackages", node_id = node_id.Replace("\\", "_") });
+            return RedirectToAction("Show", "PlotchartFiles", new { area = "FMT", viewName = "PlotchartFiles", viewTitle = "Plotchart Documents", rootMenu = "PlotchartPackages", node_id = node_id.Replace("\\", "_") });
         }
     }
 }
