@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Vaiona.Utils.Cfg;
+using Vaiona.Web.Mvc.Modularity;
 
 namespace BExIS.Modules.Fmt.UI.Controllers
 {
@@ -22,7 +23,9 @@ namespace BExIS.Modules.Fmt.UI.Controllers
         public ActionResult SubmitFile(HttpPostedFileBase[] SelectFileUploaders, string filePath)
         {
             string folderpath = "";
-            folderpath = FMT.UI.Helper.Settings.get("SourcePathToFiles").ToString();
+            var settings = ModuleManager.GetModuleSettings("fmt");
+            folderpath = settings.GetValueByKey("SourcePathToFiles").ToString();
+
             if (String.IsNullOrEmpty(folderpath))
                 folderpath = AppConfiguration.DataPath;
 
@@ -46,7 +49,8 @@ namespace BExIS.Modules.Fmt.UI.Controllers
         public ActionResult DeleteFile(string filePath)
         {
             string folderpath = "";
-            folderpath = FMT.UI.Helper.Settings.get("SourcePathToFiles").ToString();
+            var settings = ModuleManager.GetModuleSettings("fmt");
+            folderpath = settings.GetValueByKey("SourcePathToFiles").ToString();
             if (String.IsNullOrEmpty(folderpath))
                 folderpath = AppConfiguration.DataPath;
 

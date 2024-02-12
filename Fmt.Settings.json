@@ -1,0 +1,23 @@
+{
+  "id": "fmt",
+  "name": "File management",
+  "description": "...",
+  "entries": [
+    {
+      "key": "help",
+      "title": "Help URL",
+      "value": "",
+      "type": "String",
+      "description": "URL to the manual. If empty, it links to the latest manual from BEXIS2"
+    },
+    {
+      "key": "SourcePathToFiles",
+      "title": "Source path to files",
+      "value": "C:\\Data\\Temp\\FMT_Temp",
+      "description": "",
+      "type": "String",
+      "options": []
+    }
+   
+  ]
+}

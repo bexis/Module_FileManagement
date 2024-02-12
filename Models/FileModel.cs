@@ -8,6 +8,7 @@ using Vaiona.Utils.Cfg;
 using System.Web.UI;
 using BExIS.Modules.FMT.UI.Helper;
 using Shell32;
+using Vaiona.Web.Mvc.Modularity;
 
 namespace BExIS.Modules.FMT.UI.Models
 
@@ -57,7 +58,8 @@ namespace BExIS.Modules.FMT.UI.Models
         internal static List<FileModel> GetFileModelList(String FMTMenuItemPath, bool hasRights)
         {
             string folderpath = "";
-            folderpath = Helper.Settings.get("SourcePathToFiles").ToString();
+            var settings = ModuleManager.GetModuleSettings("fmt");
+            folderpath = settings.GetValueByKey("SourcePathToFiles").ToString();
             if (String.IsNullOrEmpty(folderpath))
                 folderpath = AppConfiguration.DataPath;
 

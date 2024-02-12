@@ -13,6 +13,7 @@ using Vaiona.Utils.Cfg;
 using System.IO;
 using Vaiona.Web.Mvc.Models;
 using Vaiona.Web.Extensions;
+using Vaiona.Web.Mvc.Modularity;
 
 namespace BExIS.Modules.Fmt.UI.Controllers
 {
@@ -116,7 +117,9 @@ namespace BExIS.Modules.Fmt.UI.Controllers
             //    es.Send(MessageHelper.GetDownloadDatasetHeader(),message_mail, ConfigurationManager.AppSettings["SystemEmail"]);
 
             string folderpath = "";
-            folderpath = BExIS.Modules.FMT.UI.Helper.Settings.get("SourcePathToFiles").ToString();
+            var settings = ModuleManager.GetModuleSettings("fmt");
+            folderpath = settings.GetValueByKey("SourcePathToFiles").ToString();
+
             if (String.IsNullOrEmpty(path))
                 folderpath = AppConfiguration.DataPath;
 
