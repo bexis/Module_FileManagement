@@ -84,15 +84,15 @@
 
     function loadFilesAndUploader() {
         val = SelectedValue;
-        contr = "SocialEcologicalFiles";
-        adminContr = "SocialEcologicalFilesAdmin";
-        $.get('@Url.Action("GetFileLists", "SocialEcologicalFiles", new { area="FMT"})', { menuItemPath: val, contollerName: contr }, function (data) {
+        contr = "DmpFiles";
+        adminContr = "DmpFilesAdmin";
+        $.get('@Url.Action("GetFileLists", "DmpFiles", new { area="FMT"})', { menuItemPath: val, contollerName: contr }, function (data) {
             $('#FMTFilesDIV').html(data);
         });
         var adminrights = @Html.Raw(Json.Encode(ViewData["AdminRights"]));
 
         if (adminrights) {
-            $.get('@Url.Action("GetFileUploader", "SocialEcologicalFilesAdmin", new { area = "FMT" })', { menuItemPath: val, contollerName: adminContr }, function (data) {
+            $.get('@Url.Action("GetFileUploader", "DmpFilesAdmin", new { area = "FMT" })', { menuItemPath: val, contollerName: adminContr }, function (data) {
                 $('#FMTFileUpload').html(data);
             });
         }
