@@ -38,8 +38,18 @@
             extends="./menubarRoot/documents" />
 
     <Export tag="menubar" id="socialEcology" order="7"
-            title="Social Ecology" description="FMT desc" icon=""
-            controller="SocialEcologicalFiles" action="Index"
+            title="Thematic Groups" description="FMT desc" icon=""
+            controller="ThematicGroupsFiles" action="Index"
+            extends="./menubarRoot/documents" />
+
+	  <Export tag="menubar" id="technicians" order="8"
+		   title="Technicians" description="FMT desc" icon=""
+		   controller="TechniciansFiles" action="Index"
+		   extends="./menubarRoot/documents" />
+
+	  <Export tag="menubar" id="dmp" order="9"
+            title="Data Management Plans" description="FMT desc" icon=""
+            controller="DmpFiles" action="Index"
             extends="./menubarRoot/documents" />
 
     <Export tag="menubar" id="fieldworkDocuments" order="5"

@@ -181,6 +181,8 @@
   <ItemGroup>
     <Compile Include="Controllers\BaseAdminFileManagementController.cs" />
     <Compile Include="Controllers\BaseFileManagementController.cs" />
+    <Compile Include="Controllers\TechniciansFilesAdminController.cs" />
+    <Compile Include="Controllers\TechniciansFilesController.cs" />
     <Compile Include="Controllers\DrivingDirectionsFilesAdminController.cs" />
     <Compile Include="Controllers\DrivingDirectionsFilesController.cs" />
     <Compile Include="Controllers\PlotchartFilesController.cs" />
@@ -191,9 +193,11 @@
     <Compile Include="Controllers\GeneralFilesController.cs" />
     <Compile Include="Controllers\InternalFilesAdminController.cs" />
     <Compile Include="Controllers\InternalFilesController.cs" />
-    <Compile Include="Controllers\SocialEcologicalFilesAdminController.cs" />
+    <Compile Include="Controllers\DmpFilesAdminController.cs" />
+    <Compile Include="Controllers\ThematicGroupsFilesAdminController.cs" />
     <Compile Include="Controllers\PhDFilesAdminController.cs" />
-    <Compile Include="Controllers\SocialEcologicalFilesController.cs" />
+    <Compile Include="Controllers\DmpFilesController.cs" />
+    <Compile Include="Controllers\ThematicGroupsFilesController.cs" />
     <Compile Include="Controllers\PhDFilesController.cs" />
     <Compile Include="Controllers\PostDocFilesAdminController.cs" />
     <Compile Include="Controllers\PostDocFilesController.cs" />
@@ -229,8 +233,10 @@
     <Content Include="Views\PhDFiles\PhDFiles.cshtml" />
     <Content Include="Views\PostDocFiles\PostDocFiles.cshtml" />
     <Content Include="Views\DrivingDirectionsFiles\DrivingDirectionsFiles.cshtml" />
-    <Content Include="Views\SocialEcologicalFiles\SocialEcologicalFiles.cshtml" />
+    <Content Include="Views\ThematicGroupsFiles\ThematicGroupsFiles.cshtml" />
     <Content Include="Views\PlotchartFiles\PlotchartFiles.cshtml" />
+    <Content Include="Views\DmpFiles\DmpFiles.cshtml" />
+    <Content Include="Views\TechniciansFiles\TechniciansFiles.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -243,6 +249,7 @@
     <Folder Include="Scripts\" />
     <Folder Include="Views\BaseAdminFileManagement\" />
     <Folder Include="Views\BaseFileManagement\" />
+    <Folder Include="Views\DmpFilesAdmin\" />
     <Folder Include="Views\DrivingDirectionsFilesAdmin\" />
     <Folder Include="Views\FieldworkFilesAdmin\" />
     <Folder Include="Views\GeneralFilesAdmin\" />
@@ -250,7 +257,8 @@
     <Folder Include="Views\PhDFilesAdmin\" />
     <Folder Include="Views\PlotchartFilesAdmin\" />
     <Folder Include="Views\PostDocFilesAdmin\" />
-    <Folder Include="Views\SocialEcologicalFilesAdmin\" />
+    <Folder Include="Views\TechniciansFilesAdmin\" />
+    <Folder Include="Views\ThematicGroupsFilesAdmin\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Components\AAA\BExIS.Security.Entities\BExIS.Security.Entities.csproj">
