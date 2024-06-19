@@ -23,13 +23,18 @@ namespace BExIS.Modules.Fmt.UI.Controllers
         {
             ViewBag.Title = PresentationModel.GetViewTitleForTenant(viewTitle, this.Session.GetTenant());
             bool hasAdminRights = false;
-            using (UserManager userManager = new UserManager())
-            using (FeaturePermissionManager featurePermissionManager = new FeaturePermissionManager())
-            using (FeatureManager featureManager = new FeatureManager())
+            string userName = HttpContext.User.Identity.Name;
+
+            if (!String.IsNullOrEmpty(userName))
             {
-                var user = userManager.FindByNameAsync(HttpContext.User.Identity.Name).Result;
-                var feature = featureManager.FindByName(viewName + "Admin");
-                hasAdminRights =  featurePermissionManager.HasAccess(user.Id, feature.Id);
+                using (UserManager userManager = new UserManager())
+                using (FeaturePermissionManager featurePermissionManager = new FeaturePermissionManager())
+                using (FeatureManager featureManager = new FeatureManager())
+                {
+                    var user = userManager.FindByNameAsync(userName).Result;
+                    var feature = featureManager.FindByName(viewName + "Admin");
+                    hasAdminRights = featurePermissionManager.HasAccess(user.Id, feature.Id);
+                }
             }
 
             if (String.IsNullOrEmpty(rootMenu))
@@ -39,11 +44,11 @@ namespace BExIS.Modules.Fmt.UI.Controllers
 
            
                 MenuHelper menuHelper = new MenuHelper();
-                string userName = HttpContext.User.Identity.Name;
+              
                 List<FMTMenuItem> menus = null;
 
-                    bool hasUserRights = false;
-                if (userName != "" && rootMenu != "")
+                bool hasUserRights = false;
+                if (rootMenu != "")
                         hasUserRights = menuHelper.HasUserAccessRights(rootMenu, userName);
 
                 if (!hasUserRights)
@@ -65,33 +70,36 @@ namespace BExIS.Modules.Fmt.UI.Controllers
         {
             //string menuItem = new DirectoryInfo(menuItemPath).Name;
 
+            string userName = GetUsernameOrDefault();
             bool hasDeleteRights = false;
-            //check user permissions for delete
-            using (var featurePermissionManager = new FeaturePermissionManager())
-            using (var featureManager = new FeatureManager())
-            using (UserManager userManager = new UserManager())
+            if (!String.IsNullOrEmpty(userName))
             {
-
-                var userTask = userManager.FindByNameAsync(GetUsernameOrDefault());
-                userTask.Wait();
-                var user = userTask.Result;
-                List<Feature> features = featureManager.FeatureRepository.Get().ToList();
-                Feature feature = features.FirstOrDefault(f => f.Name.Equals(contollerName + "Admin"));
-                if (feature != null)
+                //check user permissions for delete
+                using (var featurePermissionManager = new FeaturePermissionManager())
+                using (var featureManager = new FeatureManager())
+                using (UserManager userManager = new UserManager())
                 {
-                    if (featurePermissionManager.HasAccess(user.Id, feature.Id))
+
+                    var userTask = userManager.FindByNameAsync(userName);
+                    userTask.Wait();
+                    var user = userTask.Result;
+                    List<Feature> features = featureManager.FeatureRepository.Get().ToList();
+                    Feature feature = features.FirstOrDefault(f => f.Name.Equals(contollerName + "Admin"));
+                    if (feature != null)
                     {
-                        hasDeleteRights = true;
+                        if (featurePermissionManager.HasAccess(user.Id, feature.Id))
+                        {
+                            hasDeleteRights = true;
+                        }
                     }
                 }
-
-                var fileModelList = FileModel.GetFileModelList(menuItemPath, hasDeleteRights);
-                fileModelList.ForEach(a => a.controllerName = contollerName);
-
-
-                return PartialView("~/Areas/FMT/Views/Shared/_fileList.cshtml", fileModelList);
             }
-            
+
+            var fileModelList = FileModel.GetFileModelList(menuItemPath, hasDeleteRights);
+            fileModelList.ForEach(a => a.controllerName = contollerName);
+
+
+            return PartialView("~/Areas/FMT/Views/Shared/_fileList.cshtml", fileModelList);
         }
 
         public ActionResult DownloadFile(string path, string mimeType)
