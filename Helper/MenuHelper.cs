@@ -48,15 +48,15 @@ namespace BExIS.Modules.FMT.UI.Helper
             return xmlDoc;
         }
 
-        internal bool HasUserAccessRights(string root, string userName, string node = "")
+        internal bool HasUserAccessRights(string root, string userName = null, string node = "")
         {
             XmlDocument xmlDoc = GetMenuXmlDoc();
             string[] rootGroups;
             bool hasRights = false;
-
+            string temp = "";
             try
             {
-                string temp = xmlDoc.SelectSingleNode(string.Format("//Items[@Name='{0}']", root)).Attributes.GetNamedItem("Group").Value;
+                temp = xmlDoc.SelectSingleNode(string.Format("//Items[@Name='{0}']", root)).Attributes.GetNamedItem("Group").Value;
                 rootGroups = temp.Split(',');
             }
             catch (Exception ex)
@@ -66,40 +66,13 @@ namespace BExIS.Modules.FMT.UI.Helper
             //if node is empty then check only root node access
             if (node == "")
             {
-                if (rootGroups.Length > 0)
+                if (!String.IsNullOrEmpty(temp))
                 {
-                    using (UserManager userManager = new UserManager())
+                    if (!String.IsNullOrEmpty(userName))
                     {
-                        foreach (string roleName in rootGroups)
-                        {
-                            var userTask = userManager.FindByNameAsync(userName);
-                            userTask.Wait();
-                            var user = userTask.Result;
-
-                            if (user.Groups.Select(a => a.Name).Contains(roleName))
-                            {
-                                hasRights = true;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-            //if node not empty check access rights to the singel node dependence on root. 
-            else
-            {
-                //if node has an entry in Group check rights for user. If group empty skip access rights check
-                try
-                {
-                    string temp = xmlDoc.SelectSingleNode(string.Format("//Items[@Name='{0}']", node)).Attributes.GetNamedItem("Group").Value;
-                    if(String.IsNullOrEmpty(temp))
-                        hasRights = true;
-                    else
-                    {
-                        var nodeGroups = temp.Split(',');
                         using (UserManager userManager = new UserManager())
                         {
-                            foreach (string roleName in nodeGroups)
+                            foreach (string roleName in rootGroups)
                             {
                                 var userTask = userManager.FindByNameAsync(userName);
                                 userTask.Wait();
@@ -114,6 +87,45 @@ namespace BExIS.Modules.FMT.UI.Helper
                         }
                     }
                 }
+                else
+                {
+                        hasRights = true;
+                }
+            }
+            //if node not empty check access rights to the singel node dependence on root. 
+            else
+            {
+                //if node has an entry in Group check rights for user. If group empty skip access rights check
+                try
+                {
+                    temp = xmlDoc.SelectSingleNode(string.Format("//Items[@Name='{0}']", node)).Attributes.GetNamedItem("Group").Value;
+                    if (String.IsNullOrEmpty(temp))
+                    {
+                        hasRights = true;
+                    }
+                    else
+                    {
+                        if (!String.IsNullOrEmpty(userName))
+                        {
+                            var nodeGroups = temp.Split(',');
+                            using (UserManager userManager = new UserManager())
+                            {
+                                foreach (string roleName in nodeGroups)
+                                {
+                                    var userTask = userManager.FindByNameAsync(userName);
+                                    userTask.Wait();
+                                    var user = userTask.Result;
+
+                                    if (user.Groups.Select(a => a.Name).Contains(roleName))
+                                    {
+                                        hasRights = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
                 catch (Exception ex)
                 {
                     throw ex;
@@ -123,7 +135,7 @@ namespace BExIS.Modules.FMT.UI.Helper
             return hasRights;
         }
 
-        internal List<FMTMenuItem> GetMenu(string root, string userName)
+        internal List<FMTMenuItem> GetMenu(string root, string userName = null)
         {
             List<FMTMenuItem> menuItems = null;
 
@@ -140,8 +152,11 @@ namespace BExIS.Modules.FMT.UI.Helper
                 string path = FMTPath + @"\\" + root;
                 foreach (var xmlMenuItem in GetMenuItems(xmlNodeList[0], path, root, userName).MenuItems)
                 {
-                    //check if user has rights to see menu entry (rights via groups)
-                    bool hasRights = HasUserAccessRights(root, userName, xmlMenuItem.Name);
+                    bool hasRights = false;
+                   
+                   //check if user has rights to see menu entry (rights via groups)
+                   hasRights = HasUserAccessRights(root, userName, xmlMenuItem.Name);
+
                     if (hasRights)
                         menuItems.Add(xmlMenuItem);
                 }
@@ -162,7 +177,7 @@ namespace BExIS.Modules.FMT.UI.Helper
             xElement.Save(menuConfigPath);
         }
 
-        FMTMenuItem GetMenuItems(XmlNode xmlNode, string directory, string root, string userName)
+        FMTMenuItem GetMenuItems(XmlNode xmlNode, string directory, string root, string userName = null)
         {
             if (xmlNode.Name != "Item" && xmlNode.Name != "Items")
                 return null;
@@ -174,7 +189,8 @@ namespace BExIS.Modules.FMT.UI.Helper
             foreach (XmlNode childXmlNode in xmlNode.ChildNodes)
             {
                 //check if user has rights to see menu entry (rights via groups)
-                bool hasRights = HasUserAccessRights(root, userName, childXmlNode.Attributes["Name"].Value);
+               bool hasRights = HasUserAccessRights(root, userName, childXmlNode.Attributes["Name"].Value);
+
                 if (hasRights)
                     item.MenuItems.Add(GetMenuItems(childXmlNode, directory + @"\\" + childXmlNode.Attributes["Name"].Value, root, userName));
             }
