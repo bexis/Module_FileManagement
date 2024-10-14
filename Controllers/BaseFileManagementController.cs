@@ -30,7 +30,7 @@ namespace BExIS.Modules.Fmt.UI.Controllers
             {
                 var user = userManager.FindByNameAsync(HttpContext.User.Identity.Name).Result;
                 var feature = featureManager.FindByName(viewName + "Admin");
-                hasAdminRights =  featurePermissionManager.HasAccess(user.Id, feature.Id);
+                hasAdminRights =  featurePermissionManager.HasAccessAsync(user.Id, feature.Id).Result;
             }
 
             if (String.IsNullOrEmpty(rootMenu))
@@ -80,7 +80,7 @@ namespace BExIS.Modules.Fmt.UI.Controllers
                 Feature feature = features.FirstOrDefault(f => f.Name.Equals(contollerName + "Admin"));
                 if (feature != null)
                 {
-                    if (featurePermissionManager.HasAccess(user.Id, feature.Id))
+                    if (featurePermissionManager.HasAccessAsync(user.Id, feature.Id).Result)
                     {
                         hasDeleteRights = true;
                     }
