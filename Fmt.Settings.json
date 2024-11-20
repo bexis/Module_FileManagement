@@ -13,7 +13,7 @@
     {
       "key": "SourcePathToFiles",
       "title": "Source path to files",
-      "value": "C:\\Data\\Temp\\FMT_Temp",
+      "value": "C:\\inetpub\\wwwroot\\2030-TestSite\\Data_2030",
       "description": "",
       "type": "String",
       "options": []
