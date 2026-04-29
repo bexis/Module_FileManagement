@@ -19,6 +19,16 @@ namespace BExIS.Modules.Fmt.UI.Controllers
 {
     public class BaseFileManagementController : Controller
     {
+        private readonly UserManager _userManager;
+
+        public BaseFileManagementController(UserManager userManager)
+        {
+            _userManager = userManager;
+        }
+        public BaseFileManagementController()
+        {
+           
+        }
 
         public ActionResult Show(string viewName, string rootMenu, string viewTitle)
         {
@@ -28,11 +38,10 @@ namespace BExIS.Modules.Fmt.UI.Controllers
 
             if (!String.IsNullOrEmpty(userName))
             {
-                using (UserManager userManager = new UserManager())
                 using (FeaturePermissionManager featurePermissionManager = new FeaturePermissionManager())
                 using (FeatureManager featureManager = new FeatureManager())
                 {
-                    var user = userManager.FindByNameAsync(userName).Result;
+                    var user = _userManager.FindByNameAsync(userName).Result;
                     var feature = featureManager.FindByName(viewName + "Admin");
                     hasAdminRights = featurePermissionManager.HasAccessAsync(user.Id, feature.Id).Result;
                 }
@@ -78,10 +87,8 @@ namespace BExIS.Modules.Fmt.UI.Controllers
                 //check user permissions for delete
                 using (var featurePermissionManager = new FeaturePermissionManager())
                 using (var featureManager = new FeatureManager())
-                using (UserManager userManager = new UserManager())
                 {
-
-                    var userTask = userManager.FindByNameAsync(userName);
+                    var userTask = _userManager.FindByNameAsync(userName);
                     userTask.Wait();
                     var user = userTask.Result;
                     List<Feature> features = featureManager.FeatureRepository.Get().ToList();
