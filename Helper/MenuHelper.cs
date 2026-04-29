@@ -18,6 +18,17 @@ namespace BExIS.Modules.FMT.UI.Helper
 {
     public class MenuHelper
     {
+        private readonly UserManager _userManager;
+
+        public MenuHelper(UserManager userManager)
+        {
+            _userManager = userManager;
+        }
+
+        public MenuHelper()
+        {
+            
+        }
         private XmlDocument GetMenuXmlDoc()
         {
             string FMTPath = Path.Combine(AppConfiguration.DataPath, "FMT");
@@ -70,11 +81,9 @@ namespace BExIS.Modules.FMT.UI.Helper
                 {
                     if (!String.IsNullOrEmpty(userName))
                     {
-                        using (UserManager userManager = new UserManager())
-                        {
                             foreach (string roleName in rootGroups)
                             {
-                                var userTask = userManager.FindByNameAsync(userName);
+                                var userTask = _userManager.FindByNameAsync(userName);
                                 userTask.Wait();
                                 var user = userTask.Result;
 
@@ -84,7 +93,6 @@ namespace BExIS.Modules.FMT.UI.Helper
                                     break;
                                 }
                             }
-                        }
                     }
                 }
                 else
@@ -108,11 +116,10 @@ namespace BExIS.Modules.FMT.UI.Helper
                         if (!String.IsNullOrEmpty(userName))
                         {
                             var nodeGroups = temp.Split(',');
-                            using (UserManager userManager = new UserManager())
-                            {
+
                                 foreach (string roleName in nodeGroups)
                                 {
-                                    var userTask = userManager.FindByNameAsync(userName);
+                                    var userTask = _userManager.FindByNameAsync(userName);
                                     userTask.Wait();
                                     var user = userTask.Result;
 
@@ -122,7 +129,6 @@ namespace BExIS.Modules.FMT.UI.Helper
                                         break;
                                     }
                                 }
-                            }
                         }
                     }
                 }
