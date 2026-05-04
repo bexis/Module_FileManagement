@@ -1,18 +1,19 @@
-﻿using System;
+﻿using BExIS.Modules.FMT.UI.Helper;
+using BExIS.Modules.FMT.UI.Models;
+using BExIS.Security.Entities.Objects;
+using BExIS.Security.Services.Authorization;
+using BExIS.Security.Services.Objects;
+using BExIS.Security.Services.Subjects;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using BExIS.Modules.FMT.UI.Models;
-using BExIS.Modules.FMT.UI.Helper;
-using BExIS.Security.Services.Authorization;
-using BExIS.Security.Services.Subjects;
-using BExIS.Security.Entities.Objects;
-using BExIS.Security.Services.Objects;
+using Vaiona.IoC;
 using Vaiona.Utils.Cfg;
-using System.IO;
-using Vaiona.Web.Mvc.Models;
 using Vaiona.Web.Extensions;
+using Vaiona.Web.Mvc.Models;
 using Vaiona.Web.Mvc.Modularity;
 
 namespace BExIS.Modules.Fmt.UI.Controllers
@@ -27,7 +28,7 @@ namespace BExIS.Modules.Fmt.UI.Controllers
         }
         public BaseFileManagementController()
         {
-           
+           _userManager = IoCFactory.Container.Resolve<UserManager>();
         }
 
         public ActionResult Show(string viewName, string rootMenu, string viewTitle)
@@ -41,7 +42,9 @@ namespace BExIS.Modules.Fmt.UI.Controllers
                 using (FeaturePermissionManager featurePermissionManager = new FeaturePermissionManager())
                 using (FeatureManager featureManager = new FeatureManager())
                 {
-                    var user = _userManager.FindByNameAsync(userName).Result;
+                    var userTask = _userManager.FindByNameAsync(userName);
+                    userTask.Wait();
+                    var user = userTask.Result;
                     var feature = featureManager.FindByName(viewName + "Admin");
                     hasAdminRights = featurePermissionManager.HasAccessAsync(user.Id, feature.Id).Result;
                 }
