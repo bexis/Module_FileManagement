@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Xml;
 using System.Xml.Linq;
+using Vaiona.IoC;
 using Vaiona.Utils.Cfg;
 
 namespace BExIS.Modules.FMT.UI.Helper
@@ -27,7 +28,7 @@ namespace BExIS.Modules.FMT.UI.Helper
 
         public MenuHelper()
         {
-            
+            _userManager = IoCFactory.Container.Resolve<UserManager>();
         }
         private XmlDocument GetMenuXmlDoc()
         {
