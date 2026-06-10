@@ -191,8 +191,7 @@
     <Content Include="Views\Shared\_fileList.cshtml" />
     <Content Include="Views\Shared\_uploadFile.cshtml" />
     <Content Include="Fmt.Settings.json" />
-    <None Include="Properties\PublishProfiles\BexisServer_2030-testsite.pubxml" />
-    <None Include="Properties\PublishProfiles\BexisServer_v4-ProdTestsite.pubxml" />
+    <None Include="Properties\PublishProfiles\BexisServer_BE_DevSite.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Views\InternalFiles\InternalFiles.cshtml" />
     <Content Include="Views\FieldworkFiles\FieldworkFiles.cshtml" />
