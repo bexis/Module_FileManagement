@@ -21,11 +21,6 @@ namespace BExIS.Modules.FMT.UI.Helper
     {
         private readonly UserManager _userManager;
 
-        public MenuHelper(UserManager userManager)
-        {
-            _userManager = userManager;
-        }
-
         public MenuHelper()
         {
             _userManager = IoCFactory.Container.Resolve<UserManager>();
