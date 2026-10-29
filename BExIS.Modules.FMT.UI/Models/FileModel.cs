@@ -1,0 +1,77 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Web;
+using System.IO;
+using System.Web.Mvc;
+using Vaiona.Utils.Cfg;
+using Vaiona.Web.Mvc.Modularity;
+
+namespace BExIS.Modules.FMT.UI.Models
+
+{
+    //public class InfoPageModel
+    //{
+    //    public FileModel Files { get; set; }
+    //    public List<FileModel> FileList { get; set;}
+
+
+
+    //    public InfoPageModel()
+    //    {
+    //      FileList = new List<FileModel>();
+    //      Files = new FileModel();
+
+    //    }
+    //}
+
+    public class FileModel
+    {
+
+        public string Filename { get; set; }
+        public string Filepath { get; set; }
+        public string MimeType { get; set; }
+        public byte[] FileContent { get; set; }
+        public DateTime Date { get; set; }
+        public long Length { get; set; }
+        public bool HasRights { get; set; }
+
+        public string controllerName {get; set;}
+
+        public FileModel()
+        {
+        }
+
+        public FileModel(FileInfo file, string dir, FileContentResult filecontent, bool hasRights)
+        {
+            Filename = file.Name;
+            MimeType = MimeMapping.GetMimeMapping(file.Name);
+            Filepath = dir + file.Name;
+            FileContent = filecontent.FileContents;
+            HasRights = hasRights;
+
+        }
+
+        internal static List<FileModel> GetFileModelList(String FMTMenuItemPath, bool hasRights)
+        {
+            string folderpath = "";
+            var settings = ModuleManager.GetModuleSettings("fmt");
+            folderpath = settings.GetValueByKey("SourcePathToFiles").ToString();
+            if (String.IsNullOrEmpty(folderpath))
+                folderpath = AppConfiguration.DataPath;
+
+            var fileModels = new List<FileModel>();
+            DirectoryInfo di = new DirectoryInfo(Path.Combine(folderpath, FMTMenuItemPath));
+            FileInfo[] fiArr = di.GetFiles();
+
+            foreach (FileInfo file in fiArr)
+            {
+                var fileName = Path.GetFileName(file.Name);
+                var filepath = FMTMenuItemPath + @"\\" + fileName;
+
+                fileModels.Add(new FileModel() { Filename = fileName, Filepath = filepath, MimeType = file.Extension, Date = File.GetCreationTime(Path.Combine(folderpath, filepath)), Length = file.Length, HasRights = hasRights });
+            }
+            return fileModels;
+        }
+
+    }
+}

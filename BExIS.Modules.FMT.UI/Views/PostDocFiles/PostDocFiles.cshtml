@@ -1,0 +1,166 @@
+﻿@using Telerik.Web.Mvc.UI
+@using System.Collections.Generic
+@using BExIS.Modules.FMT.UI.Models
+
+@model List<FMTMenuItem>
+
+@{
+
+    if (ViewBag.UseLayout == null)
+    {
+        Layout = null;
+    }
+}
+<div>
+
+    <div style="display:inline-block;width:20%;vertical-align: top; padding: 12px 25px 12px 25px; margin-left: -15px; z-index: 1000;">
+
+        @Html.ValidationMessage("Error")<br />
+        @if (Model == null)
+        {
+
+        }
+        else
+        {
+            @Html.Telerik().TreeView().Name("TreeView").ShowCheckBox(false).ExpandAll(false).ClientEvents(events => events
+                                                       .OnSelect("onSelect").OnLoad("click_node")
+
+                                                      ).BindTo(Model, mappings =>
+                                                      {
+                                                          mappings.For<FMTMenuItem>
+                                                          (binding => binding.ItemDataBound((item, menuItem) =>
+                                                          {
+                                                              item.Text = menuItem.Title;
+                                                              item.Value = menuItem.Path;
+                                                              item.LinkHtmlAttributes["id"] = menuItem.Path.Replace("\\", "_");
+                                                              item.ImageUrl = menuItem.MenuItems.Any() ? "~/Areas/FMT/Images/FMT_Images/Folders.png" : "~/Areas/FMT/Images/FMT_Images/Folder.png";
+                                                          })
+                                                              .Children(category => category.MenuItems));
+                                                          mappings.For<FMTMenuItem>
+                                                          (binding => binding
+                                                          .ItemDataBound((item, subMenuItem) =>
+                                                          {
+                                                              item.Text = subMenuItem.Title;
+                                                              item.Value = subMenuItem.Path;
+                                                              item.LinkHtmlAttributes["id"] = subMenuItem.Path.Replace("\\", "_");
+                                                              item.ImageUrl = subMenuItem.MenuItems.Any() ? "~/Areas/FMT/Images/FMT_Images/Folders.png" : "~/Areas/FMT/Images/FMT_Images/Folder.png";
+                                                          }));
+                                                      });
+
+
+        }
+
+    </div>
+
+    <div style="display:inline-block;width:80%;vertical-align: top;">
+        <div id="current_path"></div>
+        </br>
+        <div style="width:100%" id="FMTFilesDIV"></div>
+        </br>
+        <div style="width:100%" id="FMTFileUpload">
+
+        </div>
+    </div>
+</div>
+
+<div class="loading-overlay">
+    <div class="spin-loader"></div>
+</div>
+
+<script type="text/javascript">
+
+    function treeView() {
+        return $('#TreeView').data('tTreeView');
+    }
+
+    SelectedValue = '';
+
+    function onSelect(e) {
+        var val = treeView().getItemValue(e.item);
+
+        SelectedValue = val;
+        loadFilesAndUploader();
+    }
+
+    function loadFilesAndUploader() {
+        val = SelectedValue;
+        contr = "PostDocFiles";
+        adminContr = "PostDocFilesAdmin";
+        $.get('@Url.Action("GetFileLists", "PostDocFiles", new { area="FMT"})', { menuItemPath: val, contollerName: contr }, function (data) {
+            $('#FMTFilesDIV').html(data);
+        });
+        var adminrights = @Html.Raw(Json.Encode(ViewData["AdminRights"]));
+
+        if (adminrights) {
+            $.get('@Url.Action("GetFileUploader", "PostDocFilesAdmin", new { area = "FMT" })', { menuItemPath: val, contollerName: adminContr }, function (data) {
+                $('#FMTFileUpload').html(data);
+            });
+        }
+
+        var current_path_arr = val.split('\\');
+
+        var index;
+        var current_path = "";
+        var navigation_path = current_path_arr[0] + "__" + current_path_arr[2];
+        for (index = 3; index < current_path_arr.length; ++index) {
+            if (current_path_arr[index].length > 1) {
+                navigation_path = navigation_path + "__" + current_path_arr[index];
+                current_path = current_path + '  <b onclick="navigate_to_node(\'' + navigation_path + '\');">' + current_path_arr[index].match(/[A-Z][a-z]+|[0-9]+/g).join(" ") + "</b> / ";
+            }
+        }
+
+        $("#current_path").html(current_path.slice(0, -2));
+
+    }
+
+    jQuery.urlParam = function (name) {
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if (results == null) {
+            return null;
+        }
+        return decodeURI(results[1]) || 0;
+    }
+
+
+    function click_node() {
+        jQuery("#" + jQuery.urlParam('node_id')).click();
+    }
+
+    function navigate_to_node(node_id) {
+        console.log(node_id);
+        jQuery("#" + node_id).click();
+    }
+
+    var $loading = $('.loading-overlay').hide();
+    //Attach the event handler to any element
+    $(document)
+        .ajaxStart(function () {
+            //ajax request went so show the loading image
+            $loading.show();
+        })
+        .ajaxStop(function () {
+            //got response so hide the loading image
+            $loading.hide();
+        });
+
+</script>
+
+<style>
+    .loading-overlay {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        opacity: 0.6;
+    }
+
+    .spin-loader {
+        height: 100px;
+        background: url("/Areas/FMT/Images/loading.gif") no-repeat center center transparent;
+        position: relative;
+        top: 25%;
+    }
+</style>
